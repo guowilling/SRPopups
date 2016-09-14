@@ -93,6 +93,7 @@
 		686A052C1D571771009CD2D9 = {
 			isa = PBXGroup;
 			children = (
+				68278CFB1D64596300441E49 /* SRActionSheet */,
 				686A05371D571771009CD2D9 /* SRActionSheetDemo */,
 				686A05511D571771009CD2D9 /* SRActionSheetDemoTests */,
 				686A055C1D571771009CD2D9 /* SRActionSheetDemoUITests */,
@@ -113,7 +114,6 @@
 		686A05371D571771009CD2D9 /* SRActionSheetDemo */ = {
 			isa = PBXGroup;
 			children = (
-				68278CFB1D64596300441E49 /* SRActionSheet */,
 				686A053B1D571771009CD2D9 /* AppDelegate.h */,
 				686A053C1D571771009CD2D9 /* AppDelegate.m */,
 				686A053E1D571771009CD2D9 /* ViewController.h */,

@@ -35,7 +35,7 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheetView, N
 
 @property (nonatomic, copy) ActionSheetDidSelectSheetBlock selectSheetBlock;
 
-#pragma mark - Block's way
+#pragma mark - BLOCK
 
 + (void)sr_showActionSheetViewWithTitle:(NSString *)title
                       cancelButtonTitle:(NSString *)cancelButtonTitle
@@ -49,7 +49,7 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheetView, N
             otherButtonTitles:(NSArray  *)otherButtonTitles
              selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 
-#pragma mark - Delegate's way
+#pragma mark - DELEGATE
 
 + (void)sr_showActionSheetViewWithTitle:(NSString *)title
                       cancelButtonTitle:(NSString *)cancelButtonTitle

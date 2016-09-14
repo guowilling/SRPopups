@@ -1,12 +1,12 @@
 # SRActionSheet
-**a brief style ActionSheet which is very similar to WeChat's ActionSheet.**
+**A brief style ActionSheet which is very similar to WeChat's ActionSheet.**
 
 ![image](https://raw.githubusercontent.com/guowilling/SRActionSheet/master/demoscreen.png)
 
-## How to using
+### Usage
 
 ````objc
-
+// BLOCK
 [SRActionSheet sr_showActionSheetViewWithTitle:@"This is show with BLOCK."
                              cancelButtonTitle:@"Cancle"
                         destructiveButtonTitle:@"OK"
@@ -16,9 +16,8 @@
                              }];
 ````
 
-## or
-
 ````objc
+// DELEGATE
 [SRActionSheet sr_showActionSheetViewWithTitle:@"This is show with DELEGATE."
                              cancelButtonTitle:@"Cancle"
                         destructiveButtonTitle:@"OK"
@@ -31,4 +30,10 @@
 }
 ````
 
+
+**If you have any question, please issue or contact me.**
+
+**If you like it, please star me, thanks a lot.**
+
 **Have Fun.**
+
