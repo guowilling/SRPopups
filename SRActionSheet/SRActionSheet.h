@@ -45,10 +45,6 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheetView, N
 
 @interface SRActionSheet : UIView
 
-@property (nonatomic, weak) id<SRActionSheetDelegate> delegate;
-
-@property (nonatomic, copy) ActionSheetDidSelectSheetBlock selectSheetBlock;
-
 #pragma mark - BLOCK
 
 + (void)sr_showActionSheetViewWithTitle:(NSString *)title

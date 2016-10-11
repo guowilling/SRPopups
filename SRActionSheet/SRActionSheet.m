@@ -28,6 +28,10 @@
 
 @interface SRActionSheet ()
 
+@property (nonatomic, weak) id<SRActionSheetDelegate> delegate;
+
+@property (nonatomic, copy) ActionSheetDidSelectSheetBlock selectSheetBlock;
+
 @property (nonatomic, copy) NSString  *title;
 @property (nonatomic, copy) NSString  *cancelButtonTitle;
 @property (nonatomic, copy) NSString  *destructiveButtonTitle;
