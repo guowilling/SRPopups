@@ -2,8 +2,7 @@
 **A brief style ActionSheet which is very similar to WeChat's ActionSheet.**
 
 ![image](./show.gif)
-
-![image](./show1.png)![image](./show2.png)![image](./show3.png)
+![image](./show.png)
 
 ### Usage
 
