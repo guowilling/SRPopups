@@ -1,7 +1,9 @@
 # SRActionSheet
 **A brief style ActionSheet which is very similar to WeChat's ActionSheet.**
 
-![image](https://raw.githubusercontent.com/guowilling/SRActionSheet/master/demoscreen.png)
+![image](./show.gif)
+
+![image](./show1.png)![image](./show2.png)![image](./show3.png)
 
 ### Usage
 
@@ -29,7 +31,6 @@
     NSLog(@"%zd", index);
 }
 ````
-
 
 **If you have any question, please issue or contact me.**
 

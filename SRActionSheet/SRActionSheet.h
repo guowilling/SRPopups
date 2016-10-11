@@ -7,14 +7,14 @@
 //
 
 /**
- * If you have any question, please issue or contact me.
- * QQ: 396658379
- * Email: guowilling@qq.com
+ *  If you have any question, please issue or contact me.
+ *  QQ: 396658379
+ *  Email: guowilling@qq.com
  *
- * If you like it, please star it, thanks a lot.
- * Github: https://github.com/guowilling/SRActionSheet
+ *  If you like it, please star it, thanks a lot.
+ *  Github: https://github.com/guowilling/SRActionSheet
  *
- * Have Fun.
+ *  Have Fun.
  */
 
 #import <UIKit/UIKit.h>
@@ -24,19 +24,22 @@
 @protocol SRActionSheetDelegate <NSObject>
 
 @required
+
 /**
- *  delegate's method
- *
- *  @param actionIndex     index: top is 0 and 0++ to down but cancelBtn's index is -1
+ Delegate method
+
+ @param actionSheet The SRActionSheet instance.
+ @param index       Top is 0 and 0++ to down, but cancelBtn's index is -1.
  */
 - (void)actionSheet:(SRActionSheet *)actionSheet didSelectSheet:(NSInteger)index;
 
 @end
 
 /**
- *  block's call
- *
- *  @param index           the same to the delegate
+ Block callback
+
+ @param actionSheetView The same to the delegate.
+ @param index           The same to the delegate.
  */
 typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheetView, NSInteger index);
 
