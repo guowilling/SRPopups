@@ -38,8 +38,8 @@
 /**
  Block callback
 
- @param actionSheetView The same to the delegate.
- @param index           The same to the delegate.
+ @param actionSheetView The same as the delegate.
+ @param index           The same as the delegate.
  */
 typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheetView, NSInteger index);
 
@@ -47,11 +47,11 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheetView, N
 
 #pragma mark - BLOCK
 
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                      cancelButtonTitle:(NSString *)cancelButtonTitle
-                 destructiveButtonTitle:(NSString *)destructiveButtonTitle
-                      otherButtonTitles:(NSArray  *)otherButtonTitles
-                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
++ (instancetype)sr_showActionSheetViewWithTitle:(NSString *)title
+                              cancelButtonTitle:(NSString *)cancelButtonTitle
+                         destructiveButtonTitle:(NSString *)destructiveButtonTitle
+                              otherButtonTitles:(NSArray  *)otherButtonTitles
+                               selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 
 - (instancetype)initWithTitle:(NSString *)title
             cancelButtonTitle:(NSString *)cancelButtonTitle
@@ -61,11 +61,11 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheetView, N
 
 #pragma mark - DELEGATE
 
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                      cancelButtonTitle:(NSString *)cancelButtonTitle
-                 destructiveButtonTitle:(NSString *)destructiveButtonTitle
-                      otherButtonTitles:(NSArray  *)otherButtonTitles
-                               delegate:(id<SRActionSheetDelegate>)delegate;
++ (instancetype)sr_showActionSheetViewWithTitle:(NSString *)title
+                              cancelButtonTitle:(NSString *)cancelButtonTitle
+                         destructiveButtonTitle:(NSString *)destructiveButtonTitle
+                              otherButtonTitles:(NSArray  *)otherButtonTitles
+                                       delegate:(id<SRActionSheetDelegate>)delegate;
 
 - (instancetype)initWithTitle:(NSString *)title
             cancelButtonTitle:(NSString *)cancelButtonTitle

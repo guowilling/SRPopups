@@ -37,8 +37,8 @@
 @property (nonatomic, copy) NSString  *destructiveButtonTitle;
 @property (nonatomic, copy) NSArray   *otherButtonTitles;
 
-@property (nonatomic, strong) UIView  *coverView;
-@property (nonatomic, strong) UIView  *actionSheetView;
+@property (nonatomic, weak) UIView  *coverView;
+@property (nonatomic, weak) UIView  *actionSheetView;
 
 @property (nonatomic, assign, getter = isShow) BOOL show;
 @property (nonatomic, assign) CGFloat actionSheetHeight;
@@ -49,17 +49,20 @@
 
 #pragma mark - BLOCK
 
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                      cancelButtonTitle:(NSString *)cancelButtonTitle
-                 destructiveButtonTitle:(NSString *)destructiveButtonTitle
-                      otherButtonTitles:(NSArray  *)otherButtonTitles
-                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
++ (instancetype)sr_showActionSheetViewWithTitle:(NSString *)title
+                              cancelButtonTitle:(NSString *)cancelButtonTitle
+                         destructiveButtonTitle:(NSString *)destructiveButtonTitle
+                              otherButtonTitles:(NSArray  *)otherButtonTitles
+                               selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
 {
-    [[[self alloc] initWithTitle:title
-               cancelButtonTitle:cancelButtonTitle
-          destructiveButtonTitle:destructiveButtonTitle
-               otherButtonTitles:otherButtonTitles
-                selectSheetBlock:selectSheetBlock] show];
+    SRActionSheet *actionSheet = [[self alloc] initWithTitle:title
+                                           cancelButtonTitle:cancelButtonTitle
+                                      destructiveButtonTitle:destructiveButtonTitle
+                                           otherButtonTitles:otherButtonTitles
+                                            selectSheetBlock:selectSheetBlock];
+    [actionSheet show];
+    
+    return actionSheet;
 }
 
 - (instancetype)initWithTitle:(NSString *)title
@@ -82,17 +85,20 @@
 
 #pragma mark - DELEGATE
 
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
++ (instancetype)sr_showActionSheetViewWithTitle:(NSString *)title
                       cancelButtonTitle:(NSString *)cancelButtonTitle
                  destructiveButtonTitle:(NSString *)destructiveButtonTitle
                       otherButtonTitles:(NSArray  *)otherButtonTitles
                                delegate:(id<SRActionSheetDelegate>)delegate
 {
-    [[[self alloc] initWithTitle:title
-               cancelButtonTitle:cancelButtonTitle
-          destructiveButtonTitle:destructiveButtonTitle
-               otherButtonTitles:otherButtonTitles
-                        delegate:delegate] show];
+    SRActionSheet *actionSheet = [[self alloc] initWithTitle:title
+                                           cancelButtonTitle:cancelButtonTitle
+                                      destructiveButtonTitle:destructiveButtonTitle
+                                           otherButtonTitles:otherButtonTitles
+                                                    delegate:delegate];
+    [actionSheet show];
+    
+    return actionSheet;
 }
 
 - (instancetype)initWithTitle:(NSString *)title
@@ -113,25 +119,25 @@
     return self;
 }
 
-#pragma mark - Setup
+#pragma mark - Setup UI
 
 - (void)setupCoverView {
     
     [self addSubview:({
-        self.coverView = [[UIView alloc] initWithFrame:self.bounds];
-        self.coverView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-        [self.coverView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)]];
-        self.coverView.alpha = 0;
-        self.coverView;
+        UIView *coverView = [[UIView alloc] initWithFrame:self.bounds];
+        coverView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        [coverView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)]];
+        coverView.alpha = 0;
+        _coverView = coverView;
     })];
 }
 
 - (void)setupActionSheetView {
     
     [self addSubview:({
-        self.actionSheetView = [[UIView alloc] init];
-        self.actionSheetView.backgroundColor = kActionSheetViewColor;
-        self.actionSheetView;
+        UIView *actionSheetView = [[UIView alloc] init];
+        actionSheetView.backgroundColor = kActionSheetViewColor;
+        _actionSheetView = actionSheetView;
     })];
     
     CGFloat offsetY           = 0;
@@ -216,8 +222,8 @@
     })];
     
     offsetY += kRowButtonHeight;
+    self.actionSheetView.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), offsetY);
     self.actionSheetHeight = offsetY;
-    self.actionSheetView.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), _actionSheetHeight);
 }
 
 #pragma mark - Actions
@@ -233,13 +239,14 @@
     [self dismiss];
 }
 
-#pragma mark - Animation
+#pragma mark - Animations
 
 - (void)show {
     
-    if(self.isShow) {
+    if (self.isShow) {
         return;
     }
+    
     self.show = YES;
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.9f initialSpringVelocity:0.7f
@@ -262,7 +269,7 @@
     }];
 }
 
-#pragma mark - Other
+#pragma mark - Others
 
 - (UIImage *)imageWithColor:(UIColor *)color {
     
