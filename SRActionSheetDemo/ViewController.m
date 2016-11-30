@@ -40,10 +40,11 @@
 
 - (void)showBlock {
     
-    [SRActionSheet sr_showActionSheetViewWithTitle:@"This is show with BLOCK."
+    [SRActionSheet sr_showActionSheetViewWithTitle:nil
                                  cancelButtonTitle:@"Cancle"
                             destructiveButtonTitle:@"OK"
                                  otherButtonTitles:@[@"0", @"1", @"2"]
+                                 otherButtonImages:@[[UIImage imageNamed:@"share_wx_friend"], [UIImage imageNamed:@"share_wx_pengyouquan"]]
                                   selectSheetBlock:^(SRActionSheet *actionSheetView, NSInteger actionIndex) {
                                       NSLog(@"%zd", actionIndex);
                                   }];
@@ -51,10 +52,11 @@
 
 - (void)showDelegate {
     
-    [SRActionSheet sr_showActionSheetViewWithTitle:@"This is show with DELEGATE."
+    [SRActionSheet sr_showActionSheetViewWithTitle:@"Here is the TITLE."
                                  cancelButtonTitle:@"Cancle"
                             destructiveButtonTitle:@"OK"
                                  otherButtonTitles:@[@"0", @"1", @"2"]
+                                 otherButtonImages:nil
                                           delegate:self];
 }
 

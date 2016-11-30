@@ -36,6 +36,7 @@
 @property (nonatomic, copy) NSString  *cancelButtonTitle;
 @property (nonatomic, copy) NSString  *destructiveButtonTitle;
 @property (nonatomic, copy) NSArray   *otherButtonTitles;
+@property (nonatomic, copy) NSArray   *otherButtonImages;
 
 @property (nonatomic, weak) UIView  *coverView;
 @property (nonatomic, weak) UIView  *actionSheetView;
@@ -49,26 +50,26 @@
 
 #pragma mark - BLOCK
 
-+ (instancetype)sr_showActionSheetViewWithTitle:(NSString *)title
-                              cancelButtonTitle:(NSString *)cancelButtonTitle
-                         destructiveButtonTitle:(NSString *)destructiveButtonTitle
-                              otherButtonTitles:(NSArray  *)otherButtonTitles
-                               selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
++ (void)sr_showActionSheetViewWithTitle:(NSString *)title
+                      cancelButtonTitle:(NSString *)cancelButtonTitle
+                 destructiveButtonTitle:(NSString *)destructiveButtonTitle
+                      otherButtonTitles:(NSArray  *)otherButtonTitles
+                      otherButtonImages:(NSArray  *)otherButtonImages
+                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
 {
-    SRActionSheet *actionSheet = [[self alloc] initWithTitle:title
-                                           cancelButtonTitle:cancelButtonTitle
-                                      destructiveButtonTitle:destructiveButtonTitle
-                                           otherButtonTitles:otherButtonTitles
-                                            selectSheetBlock:selectSheetBlock];
-    [actionSheet show];
-    
-    return actionSheet;
+    [[[self alloc] initWithTitle:title
+               cancelButtonTitle:cancelButtonTitle
+          destructiveButtonTitle:destructiveButtonTitle
+               otherButtonTitles:otherButtonTitles
+               otherButtonImages:otherButtonImages
+                selectSheetBlock:selectSheetBlock] show];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
             cancelButtonTitle:(NSString *)cancelButtonTitle
        destructiveButtonTitle:(NSString *)destructiveButtonTitle
             otherButtonTitles:(NSArray  *)otherButtonTitles
+            otherButtonImages:(NSArray  *)otherButtonImages
              selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 {
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
@@ -76,6 +77,7 @@
         _cancelButtonTitle      = cancelButtonTitle ? cancelButtonTitle : @"取消";
         _destructiveButtonTitle = destructiveButtonTitle;
         _otherButtonTitles      = otherButtonTitles;
+        _otherButtonImages      = otherButtonImages;
         _selectSheetBlock       = selectSheetBlock;
         [self setupCoverView];
         [self setupActionSheetView];
@@ -85,26 +87,26 @@
 
 #pragma mark - DELEGATE
 
-+ (instancetype)sr_showActionSheetViewWithTitle:(NSString *)title
++ (void)sr_showActionSheetViewWithTitle:(NSString *)title
                       cancelButtonTitle:(NSString *)cancelButtonTitle
                  destructiveButtonTitle:(NSString *)destructiveButtonTitle
                       otherButtonTitles:(NSArray  *)otherButtonTitles
+                      otherButtonImages:(NSArray  *)otherButtonImages
                                delegate:(id<SRActionSheetDelegate>)delegate
 {
-    SRActionSheet *actionSheet = [[self alloc] initWithTitle:title
-                                           cancelButtonTitle:cancelButtonTitle
-                                      destructiveButtonTitle:destructiveButtonTitle
-                                           otherButtonTitles:otherButtonTitles
-                                                    delegate:delegate];
-    [actionSheet show];
-    
-    return actionSheet;
+    [[[self alloc] initWithTitle:title
+               cancelButtonTitle:cancelButtonTitle
+          destructiveButtonTitle:destructiveButtonTitle
+               otherButtonTitles:otherButtonTitles
+               otherButtonImages:otherButtonImages
+                        delegate:delegate] show];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
             cancelButtonTitle:(NSString *)cancelButtonTitle
        destructiveButtonTitle:(NSString *)destructiveButtonTitle
             otherButtonTitles:(NSArray  *)otherButtonTitles
+            otherButtonImages:(NSArray  *)otherButtonImages
                      delegate:(id<SRActionSheetDelegate>)delegate
 {
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
@@ -112,6 +114,7 @@
         _cancelButtonTitle      = cancelButtonTitle ? cancelButtonTitle : @"取消";
         _destructiveButtonTitle = destructiveButtonTitle;
         _otherButtonTitles      = otherButtonTitles;
+        _otherButtonImages      = otherButtonImages;
         _delegate               = delegate;
         [self setupCoverView];
         [self setupActionSheetView];
@@ -164,13 +167,19 @@
             [self.actionSheetView addSubview:({
                 UIButton *otherBtn = [[UIButton alloc] init];
                 otherBtn.frame = CGRectMake(0, offsetY, width, kRowButtonHeight);
-                otherBtn.tag = i;
                 otherBtn.backgroundColor = [UIColor whiteColor];
-                otherBtn.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
-                [otherBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                [otherBtn setTitle:self.otherButtonTitles[i] forState:UIControlStateNormal];
+                otherBtn.tag = i;
+                otherBtn.adjustsImageWhenHighlighted = NO;
+                otherBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
+                
+                [otherBtn setImage:self.otherButtonImages.count > i ? self.otherButtonImages[i] : nil forState:UIControlStateNormal];
                 [otherBtn setBackgroundImage:normalImage forState:UIControlStateNormal];
                 [otherBtn setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
+            
+                [otherBtn.titleLabel setFont:[UIFont systemFontOfSize:kButtonTitleFontSize]];
+                [otherBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [otherBtn setTitle:self.otherButtonTitles[i] forState:UIControlStateNormal];
+                
                 [otherBtn addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
                 if (i == self.otherButtonTitles.count - 1) {
                     offsetY += kRowButtonHeight;

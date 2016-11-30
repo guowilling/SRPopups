@@ -47,30 +47,34 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheetView, N
 
 #pragma mark - BLOCK
 
-+ (instancetype)sr_showActionSheetViewWithTitle:(NSString *)title
-                              cancelButtonTitle:(NSString *)cancelButtonTitle
-                         destructiveButtonTitle:(NSString *)destructiveButtonTitle
-                              otherButtonTitles:(NSArray  *)otherButtonTitles
-                               selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
++ (void)sr_showActionSheetViewWithTitle:(NSString *)title
+                      cancelButtonTitle:(NSString *)cancelButtonTitle
+                 destructiveButtonTitle:(NSString *)destructiveButtonTitle
+                      otherButtonTitles:(NSArray  *)otherButtonTitles
+                      otherButtonImages:(NSArray  *)otherButtonImages
+                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 
 - (instancetype)initWithTitle:(NSString *)title
             cancelButtonTitle:(NSString *)cancelButtonTitle
        destructiveButtonTitle:(NSString *)destructiveButtonTitle
             otherButtonTitles:(NSArray  *)otherButtonTitles
+            otherButtonImages:(NSArray  *)otherButtonImages
              selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 
 #pragma mark - DELEGATE
 
-+ (instancetype)sr_showActionSheetViewWithTitle:(NSString *)title
-                              cancelButtonTitle:(NSString *)cancelButtonTitle
-                         destructiveButtonTitle:(NSString *)destructiveButtonTitle
-                              otherButtonTitles:(NSArray  *)otherButtonTitles
-                                       delegate:(id<SRActionSheetDelegate>)delegate;
++ (void)sr_showActionSheetViewWithTitle:(NSString *)title
+                      cancelButtonTitle:(NSString *)cancelButtonTitle
+                 destructiveButtonTitle:(NSString *)destructiveButtonTitle
+                      otherButtonTitles:(NSArray  *)otherButtonTitles
+                      otherButtonImages:(NSArray  *)otherButtonImages
+                               delegate:(id<SRActionSheetDelegate>)delegate;
 
 - (instancetype)initWithTitle:(NSString *)title
             cancelButtonTitle:(NSString *)cancelButtonTitle
        destructiveButtonTitle:(NSString *)destructiveButtonTitle
             otherButtonTitles:(NSArray  *)otherButtonTitles
+            otherButtonImages:(NSArray  *)otherButtonImages
                      delegate:(id<SRActionSheetDelegate>)delegate;
 
 @end
