@@ -32,17 +32,17 @@
 
 @property (nonatomic, copy) ActionSheetDidSelectSheetBlock selectSheetBlock;
 
-@property (nonatomic, copy) NSString  *title;
-@property (nonatomic, copy) NSString  *cancelButtonTitle;
-@property (nonatomic, copy) NSString  *destructiveButtonTitle;
-@property (nonatomic, copy) NSArray   *otherButtonTitles;
-@property (nonatomic, copy) NSArray   *otherButtonImages;
+@property (nonatomic, weak) UIView  *cover;
+@property (nonatomic, weak) UIView  *actionSheet;
 
-@property (nonatomic, weak) UIView  *coverView;
-@property (nonatomic, weak) UIView  *actionSheetView;
-
-@property (nonatomic, assign, getter = isShow) BOOL show;
 @property (nonatomic, assign) CGFloat actionSheetHeight;
+@property (nonatomic, assign, getter = isShow) BOOL show;
+
+@property (nonatomic, copy) NSString  *title;
+@property (nonatomic, copy) NSString  *cancelTitle;
+@property (nonatomic, copy) NSString  *destructiveTitle;
+@property (nonatomic, copy) NSArray   *otherTitles;
+@property (nonatomic, copy) NSArray   *otherImages;
 
 @end
 
@@ -51,36 +51,67 @@
 #pragma mark - BLOCK
 
 + (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                      cancelButtonTitle:(NSString *)cancelButtonTitle
-                 destructiveButtonTitle:(NSString *)destructiveButtonTitle
-                      otherButtonTitles:(NSArray  *)otherButtonTitles
-                      otherButtonImages:(NSArray  *)otherButtonImages
-                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
+                            cancelTitle:(NSString *)cancelTitle
+                       destructiveTitle:(NSString *)destructiveTitle
+                            otherTitles:(NSArray  *)otherTitles
+                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 {
     [[[self alloc] initWithTitle:title
-               cancelButtonTitle:cancelButtonTitle
-          destructiveButtonTitle:destructiveButtonTitle
-               otherButtonTitles:otherButtonTitles
-               otherButtonImages:otherButtonImages
+                     cancelTitle:cancelTitle
+                destructiveTitle:destructiveTitle
+                     otherTitles:otherTitles
                 selectSheetBlock:selectSheetBlock] show];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
-            cancelButtonTitle:(NSString *)cancelButtonTitle
-       destructiveButtonTitle:(NSString *)destructiveButtonTitle
-            otherButtonTitles:(NSArray  *)otherButtonTitles
-            otherButtonImages:(NSArray  *)otherButtonImages
-             selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
+                  cancelTitle:(NSString *)cancelTitle
+             destructiveTitle:(NSString *)destructiveTitle
+                  otherTitles:(NSArray  *)otherTitles
+             selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
 {
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
-        _title                  = title;
-        _cancelButtonTitle      = cancelButtonTitle ? cancelButtonTitle : @"取消";
-        _destructiveButtonTitle = destructiveButtonTitle;
-        _otherButtonTitles      = otherButtonTitles;
-        _otherButtonImages      = otherButtonImages;
-        _selectSheetBlock       = selectSheetBlock;
-        [self setupCoverView];
-        [self setupActionSheetView];
+        _title            = title;
+        _cancelTitle      = cancelTitle ? cancelTitle : @"取消";
+        _destructiveTitle = destructiveTitle;
+        _otherTitles      = otherTitles;
+        _selectSheetBlock = selectSheetBlock;
+        [self setupCover];
+        [self setupActionSheet];
+    }
+    return self;
+}
+
++ (void)sr_showActionSheetViewWithTitle:(NSString *)title
+                            cancelTitle:(NSString *)cancelTitle
+                       destructiveTitle:(NSString *)destructiveTitle
+                            otherTitles:(NSArray  *)otherTitles
+                            otherImages:(NSArray  *)otherImages
+                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
+{
+    [[[self alloc] initWithTitle:title
+                     cancelTitle:cancelTitle
+                destructiveTitle:destructiveTitle
+                     otherTitles:otherTitles
+                     otherImages:otherImages
+                selectSheetBlock:selectSheetBlock] show];
+}
+
+- (instancetype)initWithTitle:(NSString *)title
+                  cancelTitle:(NSString *)cancelTitle
+             destructiveTitle:(NSString *)destructiveTitle
+                  otherTitles:(NSArray  *)otherTitles
+                  otherImages:(NSArray  *)otherImages
+             selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
+{
+    if (self = [super initWithFrame:SCREEN_BOUNDS]) {
+        _title            = title;
+        _cancelTitle      = cancelTitle ? cancelTitle : @"取消";
+        _destructiveTitle = destructiveTitle;
+        _otherTitles      = otherTitles;
+        _otherImages      = otherImages;
+        _selectSheetBlock = selectSheetBlock;
+        [self setupCover];
+        [self setupActionSheet];
     }
     return self;
 }
@@ -88,68 +119,101 @@
 #pragma mark - DELEGATE
 
 + (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                      cancelButtonTitle:(NSString *)cancelButtonTitle
-                 destructiveButtonTitle:(NSString *)destructiveButtonTitle
-                      otherButtonTitles:(NSArray  *)otherButtonTitles
-                      otherButtonImages:(NSArray  *)otherButtonImages
+                            cancelTitle:(NSString *)cancelTitle
+                       destructiveTitle:(NSString *)destructiveTitle
+                            otherTitles:(NSArray  *)otherTitles
                                delegate:(id<SRActionSheetDelegate>)delegate
 {
     [[[self alloc] initWithTitle:title
-               cancelButtonTitle:cancelButtonTitle
-          destructiveButtonTitle:destructiveButtonTitle
-               otherButtonTitles:otherButtonTitles
-               otherButtonImages:otherButtonImages
+                     cancelTitle:cancelTitle
+                destructiveTitle:destructiveTitle
+                     otherTitles:otherTitles
                         delegate:delegate] show];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
-            cancelButtonTitle:(NSString *)cancelButtonTitle
-       destructiveButtonTitle:(NSString *)destructiveButtonTitle
-            otherButtonTitles:(NSArray  *)otherButtonTitles
-            otherButtonImages:(NSArray  *)otherButtonImages
+                  cancelTitle:(NSString *)cancelTitle
+             destructiveTitle:(NSString *)destructiveTitle
+                  otherTitles:(NSArray  *)otherTitles
                      delegate:(id<SRActionSheetDelegate>)delegate
 {
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
-        _title                  = title;
-        _cancelButtonTitle      = cancelButtonTitle ? cancelButtonTitle : @"取消";
-        _destructiveButtonTitle = destructiveButtonTitle;
-        _otherButtonTitles      = otherButtonTitles;
-        _otherButtonImages      = otherButtonImages;
-        _delegate               = delegate;
-        [self setupCoverView];
-        [self setupActionSheetView];
+        _title            = title;
+        _cancelTitle      = cancelTitle ? cancelTitle : @"取消";
+        _destructiveTitle = destructiveTitle;
+        _otherTitles      = otherTitles;
+        _delegate         = delegate;
+        [self setupCover];
+        [self setupActionSheet];
+    }
+    return self;
+}
+
+
++ (void)sr_showActionSheetViewWithTitle:(NSString *)title
+                            cancelTitle:(NSString *)cancelTitle
+                       destructiveTitle:(NSString *)destructiveTitle
+                            otherTitles:(NSArray  *)otherTitles
+                            otherImages:(NSArray  *)otherImages
+                               delegate:(id<SRActionSheetDelegate>)delegate
+{
+    [[[self alloc] initWithTitle:title
+                     cancelTitle:cancelTitle
+                destructiveTitle:destructiveTitle
+                     otherTitles:otherTitles
+                     otherImages:otherImages
+                        delegate:delegate] show];
+}
+
+- (instancetype)initWithTitle:(NSString *)title
+                  cancelTitle:(NSString *)cancelTitle
+             destructiveTitle:(NSString *)destructiveTitle
+                  otherTitles:(NSArray  *)otherTitles
+                  otherImages:(NSArray  *)otherImages
+                     delegate:(id<SRActionSheetDelegate>)delegate
+{
+    if (self = [super initWithFrame:SCREEN_BOUNDS]) {
+        _title            = title;
+        _cancelTitle      = cancelTitle ? cancelTitle : @"取消";
+        _destructiveTitle = destructiveTitle;
+        _otherTitles      = otherTitles;
+        _otherImages      = otherImages;
+        _delegate         = delegate;
+        [self setupCover];
+        [self setupActionSheet];
     }
     return self;
 }
 
 #pragma mark - Setup UI
 
-- (void)setupCoverView {
+- (void)setupCover {
     
     [self addSubview:({
-        UIView *coverView = [[UIView alloc] initWithFrame:self.bounds];
-        coverView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-        [coverView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)]];
-        coverView.alpha = 0;
-        _coverView = coverView;
+        UIView *cover = [[UIView alloc] init];
+        cover.frame = self.bounds;
+        cover.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        [cover addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)]];
+        _cover = cover;
     })];
+    _cover.alpha = 0;
 }
 
-- (void)setupActionSheetView {
+- (void)setupActionSheet {
     
     [self addSubview:({
-        UIView *actionSheetView = [[UIView alloc] init];
-        actionSheetView.backgroundColor = kActionSheetViewColor;
-        _actionSheetView = actionSheetView;
+        UIView *actionSheet = [[UIView alloc] init];
+        actionSheet.backgroundColor = kActionSheetViewColor;
+        _actionSheet = actionSheet;
     })];
     
     CGFloat offsetY           = 0;
     CGFloat width             = self.frame.size.width;
-    UIImage *normalImage      = [self imageWithColor:[UIColor whiteColor]];
-    UIImage *highlightedImage = [self imageWithColor:kButtonHighlightedColor];
+    UIImage *normalImage      = [self imageFromColor:[UIColor whiteColor]];
+    UIImage *highlightedImage = [self imageFromColor:kButtonHighlightedColor];
     
-    if (self.title && self.title.length > 0) {
-        [self.actionSheetView addSubview:({
+    if (_title && _title.length > 0) {
+        [_actionSheet addSubview:({
             UILabel *titleLabel        = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, kRowButtonHeight)];
             titleLabel.backgroundColor = [UIColor whiteColor];
             titleLabel.textColor       = kTitleFontColor;
@@ -162,26 +226,41 @@
         offsetY += kRowButtonHeight + kRowLineHeight;
     }
     
-    if (self.otherButtonTitles && self.otherButtonTitles.count > 0) {
-        for (int i = 0; i < self.otherButtonTitles.count; i++) {
-            [self.actionSheetView addSubview:({
+    if (_otherTitles && _otherTitles.count > 0) {
+        for (int i = 0; i < _otherTitles.count; i++) {
+            [_actionSheet addSubview:({
                 UIButton *otherBtn = [[UIButton alloc] init];
                 otherBtn.frame = CGRectMake(0, offsetY, width, kRowButtonHeight);
                 otherBtn.backgroundColor = [UIColor whiteColor];
                 otherBtn.tag = i;
-                otherBtn.adjustsImageWhenHighlighted = NO;
-                otherBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
-                
-                [otherBtn setImage:self.otherButtonImages.count > i ? self.otherButtonImages[i] : nil forState:UIControlStateNormal];
                 [otherBtn setBackgroundImage:normalImage forState:UIControlStateNormal];
                 [otherBtn setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
-            
-                [otherBtn.titleLabel setFont:[UIFont systemFontOfSize:kButtonTitleFontSize]];
-                [otherBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                [otherBtn setTitle:self.otherButtonTitles[i] forState:UIControlStateNormal];
                 
+                if (_otherImages && _otherImages.count > 0) {
+                    UIImageView *icon = [[UIImageView alloc] init];
+                    [otherBtn addSubview:({
+                        icon.frame = CGRectMake(0, 0, kRowButtonHeight, kRowButtonHeight);
+                        icon.image = _otherImages.count > i ? _otherImages[i] : nil;
+                        icon.contentMode = UIViewContentModeCenter;
+                        icon;
+                    })];
+                    
+                    [otherBtn addSubview:({
+                        UILabel *title = [[UILabel alloc] init];
+                        title.frame = CGRectMake(CGRectGetMaxX(icon.frame), 0, width - CGRectGetMaxX(icon.frame), kRowButtonHeight);
+                        title.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
+                        title.tintColor = [UIColor blackColor];
+                        title.text = _otherTitles[i];
+                        title;
+                    })];
+                } else {
+                    [otherBtn.titleLabel setFont:[UIFont systemFontOfSize:kButtonTitleFontSize]];
+                    [otherBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    [otherBtn setTitle:_otherTitles[i] forState:UIControlStateNormal];
+                }
+
                 [otherBtn addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
-                if (i == self.otherButtonTitles.count - 1) {
+                if (i == _otherTitles.count - 1) {
                     offsetY += kRowButtonHeight;
                 } else {
                     offsetY += kRowButtonHeight + kRowLineHeight;
@@ -191,16 +270,16 @@
         }
     }
     
-    if (self.destructiveButtonTitle && self.destructiveButtonTitle.length > 0) {
+    if (_destructiveTitle && _destructiveTitle.length > 0) {
         offsetY += kRowLineHeight;
-        [self.actionSheetView addSubview:({
+        [_actionSheet addSubview:({
             UIButton *destructiveButton = [[UIButton alloc] init];
             destructiveButton.frame = CGRectMake(0, offsetY, width, kRowButtonHeight);
-            destructiveButton.tag = self.otherButtonTitles.count ? self.otherButtonTitles.count : 0;
+            destructiveButton.tag = _otherTitles.count ? _otherTitles.count : 0;
             destructiveButton.backgroundColor = [UIColor whiteColor];
             destructiveButton.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
             [destructiveButton setTitleColor:kDestructiveButtonNormalColor forState:UIControlStateNormal];
-            [destructiveButton setTitle:self.destructiveButtonTitle forState:UIControlStateNormal];
+            [destructiveButton setTitle:_destructiveTitle forState:UIControlStateNormal];
             [destructiveButton setBackgroundImage:normalImage forState:UIControlStateNormal];
             [destructiveButton setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
             [destructiveButton addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
@@ -209,21 +288,21 @@
         offsetY += kRowButtonHeight;
     }
     
-    [self.actionSheetView addSubview:({
+    [_actionSheet addSubview:({
         UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, width, kDividerViewHeight)];
         dividerView.backgroundColor = kDividerViewColor;
         dividerView;
     })];
     
     offsetY += kDividerViewHeight;
-    [self.actionSheetView addSubview:({
+    [_actionSheet addSubview:({
         UIButton *cancelBtn = [[UIButton alloc] init];
         cancelBtn.frame = CGRectMake(0, offsetY, width, kRowButtonHeight);
         cancelBtn.tag = -1;
         cancelBtn.backgroundColor = [UIColor whiteColor];
         cancelBtn.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
         [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [cancelBtn setTitle:self.cancelButtonTitle forState:UIControlStateNormal];
+        [cancelBtn setTitle:_cancelTitle forState:UIControlStateNormal];
         [cancelBtn setBackgroundImage:normalImage forState:UIControlStateNormal];
         [cancelBtn setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
         [cancelBtn addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
@@ -231,8 +310,8 @@
     })];
     
     offsetY += kRowButtonHeight;
-    self.actionSheetView.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), offsetY);
-    self.actionSheetHeight = offsetY;
+    _actionSheet.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), offsetY);
+    _actionSheetHeight = offsetY;
 }
 
 #pragma mark - Actions
@@ -261,8 +340,8 @@
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.9f initialSpringVelocity:0.7f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         self.coverView.alpha = 1.0;
-                         self.actionSheetView.transform = CGAffineTransformMakeTranslation(0, -self.actionSheetHeight);
+                         self.cover.alpha = 1.0;
+                         self.actionSheet.transform = CGAffineTransformMakeTranslation(0, -self.actionSheetHeight);
     } completion:nil];
 }
 
@@ -271,16 +350,16 @@
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.9f initialSpringVelocity:0.7f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         self.coverView.alpha = 0;
-                         self.actionSheetView.transform = CGAffineTransformIdentity;
+                         self.cover.alpha = 0;
+                         self.actionSheet.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];
 }
 
-#pragma mark - Others
+#pragma mark - Image From Color
 
-- (UIImage *)imageWithColor:(UIColor *)color {
+- (UIImage *)imageFromColor:(UIColor *)color {
     
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);

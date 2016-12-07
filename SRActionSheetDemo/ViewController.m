@@ -11,6 +11,9 @@
 
 @interface ViewController () <SRActionSheetDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *testBtn1;
+@property (weak, nonatomic) IBOutlet UIButton *testBtn2;
+
 @end
 
 @implementation ViewController
@@ -19,45 +22,32 @@
     
     [super viewDidLoad];
     
-    self.title = @"SRActionSheet";
-    
-    UIButton *blockBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    blockBtn.frame = CGRectMake(0, 0, 200, 50);
-    blockBtn.center = CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMidY(self.view.frame) - 50);
-    [blockBtn setTitle:@"show(BLOCK)" forState:UIControlStateNormal];
-    [blockBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [blockBtn addTarget:self action:@selector(showBlock) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:blockBtn];
-    
-    UIButton *delegateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    delegateBtn.frame = CGRectMake(0, 0, 200, 50);
-    delegateBtn.center = CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMidY(self.view.frame) + 50);
-    [delegateBtn setTitle:@"show(DELEGATE)" forState:UIControlStateNormal];
-    [delegateBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [delegateBtn addTarget:self action:@selector(showDelegate) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:delegateBtn];
+    [self.testBtn1 setTitle:@"OnlyTitle"     forState:UIControlStateNormal];
+    [self.testBtn2 setTitle:@"TitleAndImage" forState:UIControlStateNormal];
 }
 
-- (void)showBlock {
+- (IBAction)testBtn1Action:(UIButton *)sender {
     
-    [SRActionSheet sr_showActionSheetViewWithTitle:nil
-                                 cancelButtonTitle:@"Cancle"
-                            destructiveButtonTitle:@"OK"
-                                 otherButtonTitles:@[@"0", @"1", @"2"]
-                                 otherButtonImages:@[[UIImage imageNamed:@"share_wx_friend"], [UIImage imageNamed:@"share_wx_pengyouquan"]]
-                                  selectSheetBlock:^(SRActionSheet *actionSheetView, NSInteger actionIndex) {
-                                      NSLog(@"%zd", actionIndex);
+    [SRActionSheet sr_showActionSheetViewWithTitle:@"分享"
+                                       cancelTitle:@"取消"
+                                  destructiveTitle:nil
+                                       otherTitles:@[@"微信", @"朋友圈"]
+                                       otherImages:nil
+                                  selectSheetBlock:^(SRActionSheet *actionSheetView, NSInteger index) {
+                                      NSLog(@"%zd", index);
                                   }];
 }
 
-- (void)showDelegate {
+- (IBAction)testBtn2Action:(UIButton *)sender {
     
-    [SRActionSheet sr_showActionSheetViewWithTitle:@"Here is the TITLE."
-                                 cancelButtonTitle:@"Cancle"
-                            destructiveButtonTitle:@"OK"
-                                 otherButtonTitles:@[@"0", @"1", @"2"]
-                                 otherButtonImages:nil
-                                          delegate:self];
+    [SRActionSheet sr_showActionSheetViewWithTitle:@"分享"
+                                       cancelTitle:@"取消"
+                                  destructiveTitle:nil
+                                       otherTitles:@[@"微信", @"朋友圈"]
+                                       otherImages:@[[UIImage imageNamed:@"share_wx_friend"], [UIImage imageNamed:@"share_wx_pengyouquan"]]
+                                  selectSheetBlock:^(SRActionSheet *actionSheetView, NSInteger index) {
+                                      NSLog(@"%zd", index);
+                                  }];
 }
 
 #pragma mark - SRActionSheetDelegate
