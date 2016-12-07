@@ -48,12 +48,12 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
 #pragma mark - BLOCK
 
 /**
- Show a action sheet with block's way call-back, and the action item have title only.
+ Show a action sheet with block, and the action item have title only.
 
- @param title            The title of action item which on the top.
- @param cancelTitle      The title of action item which at the bottom.
- @param destructiveTitle The title of action item which at the other action items bottom.
- @param otherTitles      The titles of other action items.
+ @param title            The title on the top.
+ @param cancelTitle      The title of action item at the bottom.
+ @param destructiveTitle The title of action item at the other action items bottom.
+ @param otherTitles      The title of other action items.
  @param selectSheetBlock The call-back's block when select a action item.
  */
 + (void)sr_showActionSheetViewWithTitle:(NSString *)title
@@ -69,13 +69,13 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
              selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 
 /**
- Show a action sheet with block's way call-back, and the action item have title and image both.
+ Show a action sheet with block, and the action item have title and image both.
  
- @param title            The title of action item which on the top.
- @param cancelTitle      The title of action item which at the bottom.
- @param destructiveTitle The title of action item which at the other action items bottom.
- @param otherTitles      The titles of other action items.
- @param otherImages      The images of other action items.
+ @param title            The title on the top.
+ @param cancelTitle      The title of action item at the bottom.
+ @param destructiveTitle The title of action item at the other action items bottom.
+ @param otherTitles      The title of other action items.
+ @param otherImages      The image of other action items.
  @param selectSheetBlock The call-back's block when select a action item.
  */
 + (void)sr_showActionSheetViewWithTitle:(NSString *)title
@@ -95,13 +95,7 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
 #pragma mark - DELEGATE
 
 /**
- Show a action sheet with delegate's way call-back, and the action item have title only.
- 
- @param title            The title of action item which on the top.
- @param cancelTitle      The title of action item which at the bottom.
- @param destructiveTitle The title of action item which at the other action items bottom.
- @param otherTitles      The titles of other action items.
- @param delegate         The call-back's delegate when select a action item.
+ Show a action sheet with delegate, and the action item have title only.
  */
 + (void)sr_showActionSheetViewWithTitle:(NSString *)title
                             cancelTitle:(NSString *)cancelTitle
@@ -116,14 +110,7 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
                      delegate:(id<SRActionSheetDelegate>)delegate;
 
 /**
- Show a action sheet with delegate's way call-back, and the action item have title and image both.
- 
- @param title            The title of action item which on the top.
- @param cancelTitle      The title of action item which at the bottom.
- @param destructiveTitle The title of action item which at the other action items bottom.
- @param otherTitles      The titles of other action items.
- @param otherImages      The images of other action items.
- @param delegate         The call-back's delegate when select a action item.
+ Show a action sheet with delegate, and the action item have title and image both.
  */
 + (void)sr_showActionSheetViewWithTitle:(NSString *)title
                             cancelTitle:(NSString *)cancelTitle
