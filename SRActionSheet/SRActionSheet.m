@@ -8,23 +8,23 @@
 
 #import "SRActionSheet.h"
 
-#define SCREEN_BOUNDS           [UIScreen mainScreen].bounds
-#define SCREEN_WIDTH            [UIScreen mainScreen].bounds.size.width
-#define SCREEN_HEIGHT           [UIScreen mainScreen].bounds.size.height
-#define SCREEN_ADJUST(Value)    SCREEN_WIDTH * (Value) / 375.0
+#define SCREEN_BOUNDS         [UIScreen mainScreen].bounds
+#define SCREEN_WIDTH          [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT         [UIScreen mainScreen].bounds.size.height
+#define SCREEN_ADJUST(Value)  SCREEN_WIDTH * (Value) / 375.0
 
-#define kRowButtonHeight        SCREEN_ADJUST(50)
-#define kRowLineHeight          0.5
-#define kDividerViewHeight      7.5
+#define kActionItemHeight  SCREEN_ADJUST(50)
+#define kLineHeight        0.5
+#define kDividerHeight     7.5
 
-#define kTitleFontSize          SCREEN_ADJUST(15)
-#define kButtonTitleFontSize    SCREEN_ADJUST(17)
+#define kTitleFontSize                 SCREEN_ADJUST(15)
+#define kOtherActionItemTitleFontSize  SCREEN_ADJUST(17)
 
-#define kActionSheetViewColor           [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:245.0f/255.0f alpha:1.0f]
-#define kTitleFontColor                 [UIColor colorWithRed:111.0f/255.0f green:111.0f/255.0f blue:111.0f/255.0f alpha:1.0f]
-#define kButtonHighlightedColor         [UIColor colorWithRed:242.0f/255.0f green:242.0f/255.0f blue:242.0f/255.0f alpha:1.0f]
-#define kDestructiveButtonNormalColor   [UIColor colorWithRed:255.0f/255.0f green:10.00f/255.0f blue:10.00f/255.0f alpha:1.0f]
-#define kDividerViewColor               [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0f]
+#define kActionSheetViewColor          [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:245.0f/255.0f alpha:1.0f]
+#define kTitleFontColor                [UIColor colorWithRed:111.0f/255.0f green:111.0f/255.0f blue:111.0f/255.0f alpha:1.0f]
+#define kButtonHighlightedColor        [UIColor colorWithRed:242.0f/255.0f green:242.0f/255.0f blue:242.0f/255.0f alpha:1.0f]
+#define kDestructiveButtonNormalColor  [UIColor colorWithRed:255.0f/255.0f green:10.00f/255.0f blue:10.00f/255.0f alpha:1.0f]
+#define kDividerViewColor              [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0f]
 
 @interface SRActionSheet ()
 
@@ -32,11 +32,8 @@
 
 @property (nonatomic, copy) ActionSheetDidSelectSheetBlock selectSheetBlock;
 
-@property (nonatomic, weak) UIView  *cover;
-@property (nonatomic, weak) UIView  *actionSheet;
-
-@property (nonatomic, assign) CGFloat actionSheetHeight;
-@property (nonatomic, assign, getter = isShow) BOOL show;
+@property (nonatomic, weak) UIView    *cover;
+@property (nonatomic, weak) UIView    *actionSheet;
 
 @property (nonatomic, copy) NSString  *title;
 @property (nonatomic, copy) NSString  *cancelTitle;
@@ -44,9 +41,41 @@
 @property (nonatomic, copy) NSArray   *otherTitles;
 @property (nonatomic, copy) NSArray   *otherImages;
 
+@property (nonatomic, assign) CGFloat  offsetY;
+@property (nonatomic, assign) CGFloat  actionSheetHeight;
+
+@property (nonatomic, strong) NSMutableArray *otherActionItems;
+
+@property (nonatomic, strong) UIImage *normalImage;
+@property (nonatomic, strong) UIImage *highlightedImage;
+
 @end
 
 @implementation SRActionSheet
+
+- (NSMutableArray *)otherActionItems {
+    
+    if (!_otherActionItems) {
+        _otherActionItems = [NSMutableArray array];
+    }
+    return _otherActionItems;
+}
+
+- (UIImage *)normalImage {
+    
+    if (!_normalImage) {
+        _normalImage = [self imageFromColor:[UIColor whiteColor]];
+    }
+    return _normalImage;
+}
+
+- (UIImage *)highlightedImage {
+    
+    if (!_highlightedImage) {
+        _highlightedImage = [self imageFromColor:kButtonHighlightedColor];
+    }
+    return _highlightedImage;
+}
 
 #pragma mark - BLOCK
 
@@ -60,6 +89,21 @@
                      cancelTitle:cancelTitle
                 destructiveTitle:destructiveTitle
                      otherTitles:otherTitles
+                selectSheetBlock:selectSheetBlock] show];
+}
+
++ (void)sr_showActionSheetViewWithTitle:(NSString *)title
+                            cancelTitle:(NSString *)cancelTitle
+                       destructiveTitle:(NSString *)destructiveTitle
+                            otherTitles:(NSArray  *)otherTitles
+                            otherImages:(NSArray  *)otherImages
+                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
+{
+    [[[self alloc] initWithTitle:title
+                     cancelTitle:cancelTitle
+                destructiveTitle:destructiveTitle
+                     otherTitles:otherTitles
+                     otherImages:otherImages
                 selectSheetBlock:selectSheetBlock] show];
 }
 
@@ -79,21 +123,6 @@
         [self setupActionSheet];
     }
     return self;
-}
-
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                            cancelTitle:(NSString *)cancelTitle
-                       destructiveTitle:(NSString *)destructiveTitle
-                            otherTitles:(NSArray  *)otherTitles
-                            otherImages:(NSArray  *)otherImages
-                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
-{
-    [[[self alloc] initWithTitle:title
-                     cancelTitle:cancelTitle
-                destructiveTitle:destructiveTitle
-                     otherTitles:otherTitles
-                     otherImages:otherImages
-                selectSheetBlock:selectSheetBlock] show];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
@@ -131,6 +160,21 @@
                         delegate:delegate] show];
 }
 
++ (void)sr_showActionSheetViewWithTitle:(NSString *)title
+                            cancelTitle:(NSString *)cancelTitle
+                       destructiveTitle:(NSString *)destructiveTitle
+                            otherTitles:(NSArray  *)otherTitles
+                            otherImages:(NSArray  *)otherImages
+                               delegate:(id<SRActionSheetDelegate>)delegate
+{
+    [[[self alloc] initWithTitle:title
+                     cancelTitle:cancelTitle
+                destructiveTitle:destructiveTitle
+                     otherTitles:otherTitles
+                     otherImages:otherImages
+                        delegate:delegate] show];
+}
+
 - (instancetype)initWithTitle:(NSString *)title
                   cancelTitle:(NSString *)cancelTitle
              destructiveTitle:(NSString *)destructiveTitle
@@ -147,22 +191,6 @@
         [self setupActionSheet];
     }
     return self;
-}
-
-
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                            cancelTitle:(NSString *)cancelTitle
-                       destructiveTitle:(NSString *)destructiveTitle
-                            otherTitles:(NSArray  *)otherTitles
-                            otherImages:(NSArray  *)otherImages
-                               delegate:(id<SRActionSheetDelegate>)delegate
-{
-    [[[self alloc] initWithTitle:title
-                     cancelTitle:cancelTitle
-                destructiveTitle:destructiveTitle
-                     otherTitles:otherTitles
-                     otherImages:otherImages
-                        delegate:delegate] show];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
@@ -187,6 +215,33 @@
 
 #pragma mark - Setup UI
 
+- (void)setupActionSheet {
+    
+    [self addSubview:({
+        UIView *actionSheet = [[UIView alloc] init];
+        actionSheet.backgroundColor = kActionSheetViewColor;
+        _actionSheet = actionSheet;
+    })];
+    
+    [self setupTitleLabel];
+    
+    [self setupOtherActionItems];
+    
+    [self setupDestructiveActionItem];
+    
+    [_actionSheet addSubview:({
+        UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(0, _offsetY, self.frame.size.width, kDividerHeight)];
+        dividerView.backgroundColor = kDividerViewColor;
+        dividerView;
+    })];
+    
+    [self setupCancelActionItem];
+    
+    _offsetY += kActionItemHeight;
+    _actionSheet.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), _offsetY);
+    _actionSheetHeight = _offsetY;
+}
+
 - (void)setupCover {
     
     [self addSubview:({
@@ -199,22 +254,13 @@
     _cover.alpha = 0;
 }
 
-- (void)setupActionSheet {
+- (void)setupTitleLabel {
     
-    [self addSubview:({
-        UIView *actionSheet = [[UIView alloc] init];
-        actionSheet.backgroundColor = kActionSheetViewColor;
-        _actionSheet = actionSheet;
-    })];
-    
-    CGFloat offsetY           = 0;
-    CGFloat width             = self.frame.size.width;
-    UIImage *normalImage      = [self imageFromColor:[UIColor whiteColor]];
-    UIImage *highlightedImage = [self imageFromColor:kButtonHighlightedColor];
+    _offsetY = 0.0;
     
     if (_title && _title.length > 0) {
         [_actionSheet addSubview:({
-            UILabel *titleLabel        = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, kRowButtonHeight)];
+            UILabel *titleLabel        = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, kActionItemHeight)];
             titleLabel.backgroundColor = [UIColor whiteColor];
             titleLabel.textColor       = kTitleFontColor;
             titleLabel.textAlignment   = NSTextAlignmentCenter;
@@ -223,95 +269,116 @@
             titleLabel.text            = self.title;
             titleLabel;
         })];
-        offsetY += kRowButtonHeight + kRowLineHeight;
+        _offsetY += kActionItemHeight + kLineHeight;
     }
+}
+
+- (void)setupOtherActionItems {
     
     if (_otherTitles && _otherTitles.count > 0) {
         for (int i = 0; i < _otherTitles.count; i++) {
             [_actionSheet addSubview:({
                 UIButton *otherBtn = [[UIButton alloc] init];
-                otherBtn.frame = CGRectMake(0, offsetY, width, kRowButtonHeight);
+                otherBtn.frame = CGRectMake(0, _offsetY, self.frame.size.width, kActionItemHeight);
                 otherBtn.backgroundColor = [UIColor whiteColor];
                 otherBtn.tag = i;
-                [otherBtn setBackgroundImage:normalImage forState:UIControlStateNormal];
-                [otherBtn setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
-                
-                if (_otherImages && _otherImages.count > 0) {
-                    UIImageView *icon = [[UIImageView alloc] init];
-                    [otherBtn addSubview:({
-                        icon.frame = CGRectMake(0, 0, kRowButtonHeight, kRowButtonHeight);
-                        icon.image = _otherImages.count > i ? _otherImages[i] : nil;
-                        icon.contentMode = UIViewContentModeCenter;
-                        icon;
-                    })];
-                    
-                    [otherBtn addSubview:({
-                        UILabel *title = [[UILabel alloc] init];
-                        title.frame = CGRectMake(CGRectGetMaxX(icon.frame), 0, width - CGRectGetMaxX(icon.frame), kRowButtonHeight);
-                        title.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
-                        title.tintColor = [UIColor blackColor];
-                        title.text = _otherTitles[i];
-                        title;
-                    })];
-                } else {
-                    [otherBtn.titleLabel setFont:[UIFont systemFontOfSize:kButtonTitleFontSize]];
-                    [otherBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                    [otherBtn setTitle:_otherTitles[i] forState:UIControlStateNormal];
-                }
-
+                [otherBtn setBackgroundImage:self.normalImage forState:UIControlStateNormal];
+                [otherBtn setBackgroundImage:self.highlightedImage forState:UIControlStateHighlighted];
                 [otherBtn addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [otherBtn addSubview:({
+                    UIView *otherItem = [[UIView alloc] init];
+                    otherItem.backgroundColor = [UIColor clearColor];
+                    
+                    CGSize maxTitleSize = [self maxSizeInStrings:_otherTitles];
+                    if (_otherImages && _otherImages.count > 0) {
+                        UIImageView *icon = [[UIImageView alloc] init];
+                        [otherItem addSubview:({
+                            icon.frame = CGRectMake(0, 0, kActionItemHeight, kActionItemHeight);
+                            icon.image = _otherImages.count > i ? _otherImages[i] : nil;
+                            icon.contentMode = UIViewContentModeCenter;
+                            icon.tag = 2;
+                            icon;
+                        })];
+                        
+                        [otherItem addSubview:({
+                            UILabel *title = [[UILabel alloc] init];
+                            title.frame = CGRectMake(CGRectGetMaxX(icon.frame), 0, maxTitleSize.width, kActionItemHeight);
+                            title.font = [UIFont systemFontOfSize:kOtherActionItemTitleFontSize];
+                            title.tintColor = [UIColor blackColor];
+                            title.text = _otherTitles[i];
+                            title.tag = 1;
+                            title;
+                        })];
+                        otherItem.frame = CGRectMake(10, 0, kActionItemHeight + maxTitleSize.width, kActionItemHeight);
+                        
+                    } else {
+                        [otherItem addSubview:({
+                            UILabel *title = [[UILabel alloc] init];
+                            title.frame = CGRectMake(0, 0, maxTitleSize.width, kActionItemHeight);
+                            title.font = [UIFont systemFontOfSize:kOtherActionItemTitleFontSize];
+                            title.tintColor = [UIColor blackColor];
+                            title.text = _otherTitles[i];
+                            title.textAlignment = NSTextAlignmentCenter;
+                            title.tag = 1;
+                            title;
+                        })];
+                        otherItem.frame = CGRectMake(self.frame.size.width * 0.5 - maxTitleSize.width * 0.5, 0, maxTitleSize.width, kActionItemHeight);
+                    }
+                    
+                    [self.otherActionItems addObject:otherItem];
+                    otherItem;
+                })];
+                
                 if (i == _otherTitles.count - 1) {
-                    offsetY += kRowButtonHeight;
+                    _offsetY += kActionItemHeight;
                 } else {
-                    offsetY += kRowButtonHeight + kRowLineHeight;
+                    _offsetY += kActionItemHeight + kLineHeight;
                 }
                 otherBtn;
             })];
         }
     }
+}
+
+- (void)setupDestructiveActionItem {
     
     if (_destructiveTitle && _destructiveTitle.length > 0) {
-        offsetY += kRowLineHeight;
+        _offsetY += kLineHeight;
         [_actionSheet addSubview:({
             UIButton *destructiveButton = [[UIButton alloc] init];
-            destructiveButton.frame = CGRectMake(0, offsetY, width, kRowButtonHeight);
+            destructiveButton.frame = CGRectMake(0, _offsetY, self.frame.size.width, kActionItemHeight);
             destructiveButton.tag = _otherTitles.count ? _otherTitles.count : 0;
             destructiveButton.backgroundColor = [UIColor whiteColor];
-            destructiveButton.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
+            destructiveButton.titleLabel.font = [UIFont systemFontOfSize:kOtherActionItemTitleFontSize];
             [destructiveButton setTitleColor:kDestructiveButtonNormalColor forState:UIControlStateNormal];
             [destructiveButton setTitle:_destructiveTitle forState:UIControlStateNormal];
-            [destructiveButton setBackgroundImage:normalImage forState:UIControlStateNormal];
-            [destructiveButton setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
+            [destructiveButton setBackgroundImage:self.normalImage forState:UIControlStateNormal];
+            [destructiveButton setBackgroundImage:self.highlightedImage forState:UIControlStateHighlighted];
             [destructiveButton addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
-             destructiveButton;
+            destructiveButton;
         })];
-        offsetY += kRowButtonHeight;
+        _offsetY += kActionItemHeight;
     }
+}
+
+- (void)setupCancelActionItem {
     
-    [_actionSheet addSubview:({
-        UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, width, kDividerViewHeight)];
-        dividerView.backgroundColor = kDividerViewColor;
-        dividerView;
-    })];
+    _offsetY += kDividerHeight;
     
-    offsetY += kDividerViewHeight;
     [_actionSheet addSubview:({
         UIButton *cancelBtn = [[UIButton alloc] init];
-        cancelBtn.frame = CGRectMake(0, offsetY, width, kRowButtonHeight);
+        cancelBtn.frame = CGRectMake(0, _offsetY, self.frame.size.width, kActionItemHeight);
         cancelBtn.tag = -1;
         cancelBtn.backgroundColor = [UIColor whiteColor];
-        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
+        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:kOtherActionItemTitleFontSize];
         [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [cancelBtn setTitle:_cancelTitle forState:UIControlStateNormal];
-        [cancelBtn setBackgroundImage:normalImage forState:UIControlStateNormal];
-        [cancelBtn setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
+        [cancelBtn setBackgroundImage:self.normalImage forState:UIControlStateNormal];
+        [cancelBtn setBackgroundImage:self.highlightedImage forState:UIControlStateHighlighted];
         [cancelBtn addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
-         cancelBtn;
+        cancelBtn;
     })];
-    
-    offsetY += kRowButtonHeight;
-    _actionSheet.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), offsetY);
-    _actionSheetHeight = offsetY;
 }
 
 #pragma mark - Actions
@@ -331,33 +398,69 @@
 
 - (void)show {
     
-    if (self.isShow) {
-        return;
-    }
-    
-    self.show = YES;
     [[UIApplication sharedApplication].keyWindow addSubview:self];
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.9f initialSpringVelocity:0.7f
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+         usingSpringWithDamping:0.9
+          initialSpringVelocity:0.7
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          self.cover.alpha = 1.0;
                          self.actionSheet.transform = CGAffineTransformMakeTranslation(0, -self.actionSheetHeight);
-    } completion:nil];
+                     }
+                     completion:nil];
 }
 
 - (void)dismiss {
     
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.9f initialSpringVelocity:0.7f
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+         usingSpringWithDamping:0.9
+          initialSpringVelocity:0.7
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         self.cover.alpha = 0;
+                         self.cover.alpha = 0.0;
                          self.actionSheet.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-        [self removeFromSuperview];
-    }];
+                     }
+                     completion:^(BOOL finished) {
+                         [self removeFromSuperview];
+                     }];
 }
 
-#pragma mark - Image From Color
+#pragma mark - Other Method
+
+- (void)setOtherActionItemAlignment:(SROtherActionItemAlignment)otherActionItemAlignment {
+    
+    _otherActionItemAlignment = otherActionItemAlignment;
+    
+    switch (otherActionItemAlignment) {
+        case SROtherActionItemAlignmentLeft:
+        {
+            for (UIView *actionItem in self.otherActionItems) {
+                UILabel *title = [actionItem viewWithTag:1];
+                title.textAlignment = NSTextAlignmentLeft;
+                CGRect newFrame = actionItem.frame;
+                newFrame.origin.x = 10;
+                actionItem.frame = newFrame;
+            }
+        }
+            break;
+            
+        case SROtherActionItemAlignmentCenter:
+        {
+            for (UIView *actionItem in self.otherActionItems) {
+                UILabel *title = [actionItem viewWithTag:1];
+                title.textAlignment = NSTextAlignmentCenter;
+                CGRect newFrame = actionItem.frame;
+                newFrame.origin.x = self.frame.size.width * 0.5 - newFrame.size.width * 0.5;
+                actionItem.frame = newFrame;
+            }
+        }
+            break;
+    }
+}
+
+#pragma mark - Tool Method
 
 - (UIImage *)imageFromColor:(UIColor *)color {
     
@@ -369,6 +472,27 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
+}
+
+- (CGSize)maxSizeInStrings:(NSArray *)strings {
+    
+    CGSize maxSize = CGSizeZero;
+    CGFloat maxWith = 0.0;
+    for (NSString *string in strings) {
+        CGSize size = [self sizeOfString:string withFont:[UIFont systemFontOfSize:kOtherActionItemTitleFontSize]];
+        if (maxWith < size.width) {
+            maxSize = size;
+        }
+    }
+    return maxSize;
+}
+
+- (CGSize)sizeOfString:(NSString *)string withFont:(UIFont *)font {
+    
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+    attrs[NSFontAttributeName] = font;
+    CGSize maxSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
+    return [string boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
 
 @end

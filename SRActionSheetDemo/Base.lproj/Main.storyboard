@@ -22,32 +22,52 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqW-L6-d0M">
-                                <rect key="frame" x="164.5" y="268.5" width="46" height="30"/>
+                                <rect key="frame" x="164.5" y="218.5" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <action selector="testBtn1Action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bgo-wJ-PR7"/>
+                                    <action selector="testBtn1Action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zqK-ww-Dbr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eit-x7-CUr">
                                 <rect key="frame" x="164" y="368.5" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <action selector="testBtn2Action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wHd-aO-iHr"/>
+                                    <action selector="testBtn4Action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pqq-5n-QFI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z33-w2-5id">
+                                <rect key="frame" x="164.5" y="268.5" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="testBtn2Action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nmB-o3-Fjr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3NB-v5-jBH">
+                                <rect key="frame" x="164.5" y="318.5" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="testBtn3Action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kHi-j9-swH"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="qqW-L6-d0M" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Z4-8W-zYl"/>
+                            <constraint firstItem="z33-w2-5id" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Aj9-qa-KkS"/>
+                            <constraint firstItem="z33-w2-5id" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-50" id="Ky6-ji-oiK"/>
+                            <constraint firstItem="3NB-v5-jBH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YPa-ax-9B4"/>
                             <constraint firstItem="eit-x7-CUr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="50" id="c48-SP-UnF"/>
                             <constraint firstItem="eit-x7-CUr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hHC-Wn-R7U"/>
-                            <constraint firstItem="qqW-L6-d0M" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-50" id="pii-Le-8Lz"/>
+                            <constraint firstItem="3NB-v5-jBH" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="mrB-o7-h99"/>
+                            <constraint firstItem="qqW-L6-d0M" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-100" id="pii-Le-8Lz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SRActionSheet" id="VeL-AG-9nF"/>
                     <connections>
-                        <outlet property="testBtn1" destination="qqW-L6-d0M" id="Con-Ur-jHV"/>
-                        <outlet property="testBtn2" destination="eit-x7-CUr" id="Lg2-5Z-rjH"/>
+                        <outlet property="testBtn1" destination="qqW-L6-d0M" id="x7A-iO-HTg"/>
+                        <outlet property="testBtn2" destination="z33-w2-5id" id="rYu-FG-adP"/>
+                        <outlet property="testBtn3" destination="3NB-v5-jBH" id="lk2-tM-TVk"/>
+                        <outlet property="testBtn4" destination="eit-x7-CUr" id="bGP-Ii-2b2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

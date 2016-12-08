@@ -21,6 +21,12 @@
 
 @class SRActionSheet;
 
+typedef NS_ENUM(NSInteger, SROtherActionItemAlignment) {
+    SROtherActionItemAlignmentLeft,
+    SROtherActionItemAlignmentCenter
+};
+
+
 @protocol SRActionSheetDelegate <NSObject>
 
 @required
@@ -45,6 +51,11 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
 
 @interface SRActionSheet : UIView
 
+/**
+ Default is SROtherActionItemAlignmentCenter when no images but when there are images default is SROtherActionItemAlignmentLeft.
+ */
+@property (nonatomic, assign) SROtherActionItemAlignment otherActionItemAlignment;
+
 #pragma mark - BLOCK
 
 /**
@@ -61,12 +72,6 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
                        destructiveTitle:(NSString *)destructiveTitle
                             otherTitles:(NSArray  *)otherTitles
                         selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
-
-- (instancetype)initWithTitle:(NSString *)title
-                  cancelTitle:(NSString *)cancelTitle
-             destructiveTitle:(NSString *)destructiveTitle
-                  otherTitles:(NSArray  *)otherTitles
-             selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 
 /**
  Show a action sheet with block, and the action item have title and image both.
@@ -89,6 +94,12 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
                   cancelTitle:(NSString *)cancelTitle
              destructiveTitle:(NSString *)destructiveTitle
                   otherTitles:(NSArray  *)otherTitles
+             selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
+
+- (instancetype)initWithTitle:(NSString *)title
+                  cancelTitle:(NSString *)cancelTitle
+             destructiveTitle:(NSString *)destructiveTitle
+                  otherTitles:(NSArray  *)otherTitles
                   otherImages:(NSArray  *)otherImages
              selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 
@@ -102,12 +113,6 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
                        destructiveTitle:(NSString *)destructiveTitle
                             otherTitles:(NSArray  *)otherTitles
                                delegate:(id<SRActionSheetDelegate>)delegate;
-
-- (instancetype)initWithTitle:(NSString *)title
-                  cancelTitle:(NSString *)cancelTitle
-             destructiveTitle:(NSString *)destructiveTitle
-                  otherTitles:(NSArray  *)otherTitles
-                     delegate:(id<SRActionSheetDelegate>)delegate;
 
 /**
  Show a action sheet with delegate, and the action item have title and image both.
@@ -125,5 +130,14 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
                   otherTitles:(NSArray  *)otherTitles
                   otherImages:(NSArray  *)otherImages
                      delegate:(id<SRActionSheetDelegate>)delegate;
+
+- (instancetype)initWithTitle:(NSString *)title
+                  cancelTitle:(NSString *)cancelTitle
+             destructiveTitle:(NSString *)destructiveTitle
+                  otherTitles:(NSArray  *)otherTitles
+                     delegate:(id<SRActionSheetDelegate>)delegate;
+
+- (void)show;
+- (void)dismiss;
 
 @end
