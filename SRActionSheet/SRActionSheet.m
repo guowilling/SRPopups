@@ -481,6 +481,7 @@
     for (NSString *string in strings) {
         CGSize size = [self sizeOfString:string withFont:[UIFont systemFontOfSize:kOtherActionItemTitleFontSize]];
         if (maxWith < size.width) {
+            maxWith = size.width;
             maxSize = size;
         }
     }
