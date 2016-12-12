@@ -13,18 +13,18 @@
 #define SCREEN_HEIGHT         [UIScreen mainScreen].bounds.size.height
 #define SCREEN_ADJUST(Value)  SCREEN_WIDTH * (Value) / 375.0
 
-#define kActionItemHeight  SCREEN_ADJUST(50)
-#define kLineHeight        0.5
-#define kDividerHeight     7.5
+#define kActionItemHeight     SCREEN_ADJUST(50)
+#define kLineHeight           0.5
+#define kDividerHeight        7.5
 
-#define kTitleFontSize                 SCREEN_ADJUST(15)
-#define kOtherActionItemTitleFontSize  SCREEN_ADJUST(17)
+#define kTitleFontSize        SCREEN_ADJUST(15)
+#define kActionItemFontSize   SCREEN_ADJUST(17)
 
-#define kActionSheetViewColor          [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:245.0f/255.0f alpha:1.0f]
-#define kTitleFontColor                [UIColor colorWithRed:111.0f/255.0f green:111.0f/255.0f blue:111.0f/255.0f alpha:1.0f]
-#define kButtonHighlightedColor        [UIColor colorWithRed:242.0f/255.0f green:242.0f/255.0f blue:242.0f/255.0f alpha:1.0f]
-#define kDestructiveButtonNormalColor  [UIColor colorWithRed:255.0f/255.0f green:10.00f/255.0f blue:10.00f/255.0f alpha:1.0f]
-#define kDividerViewColor              [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0f]
+#define kActionSheetColor            [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:245.0f/255.0f alpha:1.0f]
+#define kTitleColor                  [UIColor colorWithRed:111.0f/255.0f green:111.0f/255.0f blue:111.0f/255.0f alpha:1.0f]
+#define kActionItemHighlightedColor  [UIColor colorWithRed:242.0f/255.0f green:242.0f/255.0f blue:242.0f/255.0f alpha:1.0f]
+#define kDestructiveItemNormalColor  [UIColor colorWithRed:255.0f/255.0f green:10.00f/255.0f blue:10.00f/255.0f alpha:1.0f]
+#define kDividerColor                [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0f]
 
 @interface SRActionSheet ()
 
@@ -72,7 +72,7 @@
 - (UIImage *)highlightedImage {
     
     if (!_highlightedImage) {
-        _highlightedImage = [self imageFromColor:kButtonHighlightedColor];
+        _highlightedImage = [self imageFromColor:kActionItemHighlightedColor];
     }
     return _highlightedImage;
 }
@@ -219,7 +219,7 @@
     
     [self addSubview:({
         UIView *actionSheet = [[UIView alloc] init];
-        actionSheet.backgroundColor = kActionSheetViewColor;
+        actionSheet.backgroundColor = kActionSheetColor;
         _actionSheet = actionSheet;
     })];
     
@@ -231,7 +231,7 @@
     
     [_actionSheet addSubview:({
         UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(0, _offsetY, self.frame.size.width, kDividerHeight)];
-        dividerView.backgroundColor = kDividerViewColor;
+        dividerView.backgroundColor = kDividerColor;
         dividerView;
     })];
     
@@ -262,7 +262,7 @@
         [_actionSheet addSubview:({
             UILabel *titleLabel        = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, kActionItemHeight)];
             titleLabel.backgroundColor = [UIColor whiteColor];
-            titleLabel.textColor       = kTitleFontColor;
+            titleLabel.textColor       = kTitleColor;
             titleLabel.textAlignment   = NSTextAlignmentCenter;
             titleLabel.font            = [UIFont systemFontOfSize:kTitleFontSize];
             titleLabel.numberOfLines   = 0;
@@ -304,7 +304,7 @@
                         [otherItem addSubview:({
                             UILabel *title = [[UILabel alloc] init];
                             title.frame = CGRectMake(CGRectGetMaxX(icon.frame), 0, maxTitleSize.width, kActionItemHeight);
-                            title.font = [UIFont systemFontOfSize:kOtherActionItemTitleFontSize];
+                            title.font = [UIFont systemFontOfSize:kActionItemFontSize];
                             title.tintColor = [UIColor blackColor];
                             title.text = _otherTitles[i];
                             title.tag = 1;
@@ -316,7 +316,7 @@
                         [otherItem addSubview:({
                             UILabel *title = [[UILabel alloc] init];
                             title.frame = CGRectMake(0, 0, maxTitleSize.width, kActionItemHeight);
-                            title.font = [UIFont systemFontOfSize:kOtherActionItemTitleFontSize];
+                            title.font = [UIFont systemFontOfSize:kActionItemFontSize];
                             title.tintColor = [UIColor blackColor];
                             title.text = _otherTitles[i];
                             title.textAlignment = NSTextAlignmentCenter;
@@ -327,6 +327,7 @@
                     }
                     
                     [self.otherActionItems addObject:otherItem];
+                    otherItem.userInteractionEnabled = NO;
                     otherItem;
                 })];
                 
@@ -350,8 +351,8 @@
             destructiveButton.frame = CGRectMake(0, _offsetY, self.frame.size.width, kActionItemHeight);
             destructiveButton.tag = _otherTitles.count ? _otherTitles.count : 0;
             destructiveButton.backgroundColor = [UIColor whiteColor];
-            destructiveButton.titleLabel.font = [UIFont systemFontOfSize:kOtherActionItemTitleFontSize];
-            [destructiveButton setTitleColor:kDestructiveButtonNormalColor forState:UIControlStateNormal];
+            destructiveButton.titleLabel.font = [UIFont systemFontOfSize:kActionItemFontSize];
+            [destructiveButton setTitleColor:kDestructiveItemNormalColor forState:UIControlStateNormal];
             [destructiveButton setTitle:_destructiveTitle forState:UIControlStateNormal];
             [destructiveButton setBackgroundImage:self.normalImage forState:UIControlStateNormal];
             [destructiveButton setBackgroundImage:self.highlightedImage forState:UIControlStateHighlighted];
@@ -371,7 +372,7 @@
         cancelBtn.frame = CGRectMake(0, _offsetY, self.frame.size.width, kActionItemHeight);
         cancelBtn.tag = -1;
         cancelBtn.backgroundColor = [UIColor whiteColor];
-        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:kOtherActionItemTitleFontSize];
+        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:kActionItemFontSize];
         [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [cancelBtn setTitle:_cancelTitle forState:UIControlStateNormal];
         [cancelBtn setBackgroundImage:self.normalImage forState:UIControlStateNormal];
@@ -479,7 +480,7 @@
     CGSize maxSize = CGSizeZero;
     CGFloat maxWith = 0.0;
     for (NSString *string in strings) {
-        CGSize size = [self sizeOfString:string withFont:[UIFont systemFontOfSize:kOtherActionItemTitleFontSize]];
+        CGSize size = [self sizeOfString:string withFont:[UIFont systemFontOfSize:kActionItemFontSize]];
         if (maxWith < size.width) {
             maxWith = size.width;
             maxSize = size;
