@@ -1,10 +1,12 @@
 # SRActionSheet
-**A brief style ActionSheet which is very similar to WeChat's ActionSheet.**
 
-> **There are two styles for other action items:**    
-> 1.Only title, default alignment is left.    
-> 2.Title and image, default alignment is center.    
-> You can custom alignment through otherActionItemAlignment property.
+### A brief style ActionSheet which is very similar to WeChat's ActionSheet.
+
+**There are two styles for other action items:**    
+
+* 1.Only title, default alignment is left.    
+* 2.Title and image, default alignment is center.    
+* 3.You can custom alignment through otherActionItemAlignment property.
 
 ![image](./show1.jpg)
 ![image](./show2.jpg)    
@@ -65,9 +67,6 @@ actionSheet.otherActionItemAlignment = SROtherActionItemAlignmentCenter;
 [actionSheet show];
 ````
 
-**If you have any question, please issue or contact me.**
-
-**If you like it, please star me, thanks a lot.**
-
+**If you have any question, please issue or contact me.**   
+**If this repo helps you, please give it a star.**  
 **Have Fun.**
-
