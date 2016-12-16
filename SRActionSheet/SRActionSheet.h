@@ -56,6 +56,8 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
  */
 @property (nonatomic, assign) SROtherActionItemAlignment otherActionItemAlignment;
 
+- (void)show;
+
 #pragma mark - BLOCK
 
 /**
@@ -136,8 +138,5 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
              destructiveTitle:(NSString *)destructiveTitle
                   otherTitles:(NSArray  *)otherTitles
                      delegate:(id<SRActionSheetDelegate>)delegate;
-
-- (void)show;
-- (void)dismiss;
 
 @end
