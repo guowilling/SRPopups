@@ -79,50 +79,19 @@
 
 #pragma mark - BLOCK
 
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                            cancelTitle:(NSString *)cancelTitle
-                       destructiveTitle:(NSString *)destructiveTitle
-                            otherTitles:(NSArray  *)otherTitles
-                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title
+                                cancelTitle:(NSString *)cancelTitle
+                           destructiveTitle:(NSString *)destructiveTitle
+                                otherTitles:(NSArray  *)otherTitles
+                                otherImages:(NSArray  *)otherImages
+                           selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
 {
-    [[[self alloc] initWithTitle:title
-                     cancelTitle:cancelTitle
-                destructiveTitle:destructiveTitle
-                     otherTitles:otherTitles
-                selectSheetBlock:selectSheetBlock] show];
-}
-
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                            cancelTitle:(NSString *)cancelTitle
-                       destructiveTitle:(NSString *)destructiveTitle
-                            otherTitles:(NSArray  *)otherTitles
-                            otherImages:(NSArray  *)otherImages
-                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
-{
-    [[[self alloc] initWithTitle:title
-                     cancelTitle:cancelTitle
-                destructiveTitle:destructiveTitle
-                     otherTitles:otherTitles
-                     otherImages:otherImages
-                selectSheetBlock:selectSheetBlock] show];
-}
-
-- (instancetype)initWithTitle:(NSString *)title
-                  cancelTitle:(NSString *)cancelTitle
-             destructiveTitle:(NSString *)destructiveTitle
-                  otherTitles:(NSArray  *)otherTitles
-             selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock
-{
-    if (self = [super initWithFrame:SCREEN_BOUNDS]) {
-        _title            = title;
-        _cancelTitle      = cancelTitle ? cancelTitle : @"取消";
-        _destructiveTitle = destructiveTitle;
-        _otherTitles      = otherTitles;
-        _selectSheetBlock = selectSheetBlock;
-        [self setupCover];
-        [self setupActionSheet];
-    }
-    return self;
+    return [[self alloc] initWithTitle:title
+                           cancelTitle:cancelTitle
+                      destructiveTitle:destructiveTitle
+                           otherTitles:otherTitles
+                           otherImages:otherImages
+                      selectSheetBlock:selectSheetBlock];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
@@ -134,7 +103,7 @@
 {
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
         _title            = title;
-        _cancelTitle      = cancelTitle ? cancelTitle : @"取消";
+        _cancelTitle      = cancelTitle;
         _destructiveTitle = destructiveTitle;
         _otherTitles      = otherTitles;
         _otherImages      = otherImages;
@@ -147,50 +116,19 @@
 
 #pragma mark - DELEGATE
 
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                            cancelTitle:(NSString *)cancelTitle
-                       destructiveTitle:(NSString *)destructiveTitle
-                            otherTitles:(NSArray  *)otherTitles
-                               delegate:(id<SRActionSheetDelegate>)delegate
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title
+                                cancelTitle:(NSString *)cancelTitle
+                           destructiveTitle:(NSString *)destructiveTitle
+                                otherTitles:(NSArray  *)otherTitles
+                                otherImages:(NSArray  *)otherImages
+                                   delegate:(id<SRActionSheetDelegate>)delegate
 {
-    [[[self alloc] initWithTitle:title
-                     cancelTitle:cancelTitle
-                destructiveTitle:destructiveTitle
-                     otherTitles:otherTitles
-                        delegate:delegate] show];
-}
-
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                            cancelTitle:(NSString *)cancelTitle
-                       destructiveTitle:(NSString *)destructiveTitle
-                            otherTitles:(NSArray  *)otherTitles
-                            otherImages:(NSArray  *)otherImages
-                               delegate:(id<SRActionSheetDelegate>)delegate
-{
-    [[[self alloc] initWithTitle:title
-                     cancelTitle:cancelTitle
-                destructiveTitle:destructiveTitle
-                     otherTitles:otherTitles
-                     otherImages:otherImages
-                        delegate:delegate] show];
-}
-
-- (instancetype)initWithTitle:(NSString *)title
-                  cancelTitle:(NSString *)cancelTitle
-             destructiveTitle:(NSString *)destructiveTitle
-                  otherTitles:(NSArray  *)otherTitles
-                     delegate:(id<SRActionSheetDelegate>)delegate
-{
-    if (self = [super initWithFrame:SCREEN_BOUNDS]) {
-        _title            = title;
-        _cancelTitle      = cancelTitle ? cancelTitle : @"取消";
-        _destructiveTitle = destructiveTitle;
-        _otherTitles      = otherTitles;
-        _delegate         = delegate;
-        [self setupCover];
-        [self setupActionSheet];
-    }
-    return self;
+    return [[self alloc] initWithTitle:title
+                           cancelTitle:cancelTitle
+                      destructiveTitle:destructiveTitle
+                           otherTitles:otherTitles
+                           otherImages:otherImages
+                              delegate:delegate];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
@@ -202,7 +140,7 @@
 {
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
         _title            = title;
-        _cancelTitle      = cancelTitle ? cancelTitle : @"取消";
+        _cancelTitle      = cancelTitle;
         _destructiveTitle = destructiveTitle;
         _otherTitles      = otherTitles;
         _otherImages      = otherImages;
@@ -237,7 +175,6 @@
     
     [self setupCancelActionItem];
     
-    _offsetY += kActionItemHeight;
     _actionSheet.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), _offsetY);
     _actionSheetHeight = _offsetY;
 }
@@ -365,21 +302,25 @@
 
 - (void)setupCancelActionItem {
     
-    _offsetY += kDividerHeight;
-    
-    [_actionSheet addSubview:({
-        UIButton *cancelBtn = [[UIButton alloc] init];
-        cancelBtn.frame = CGRectMake(0, _offsetY, self.frame.size.width, kActionItemHeight);
-        cancelBtn.tag = -1;
-        cancelBtn.backgroundColor = [UIColor whiteColor];
-        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:kActionItemFontSize];
-        [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [cancelBtn setTitle:_cancelTitle forState:UIControlStateNormal];
-        [cancelBtn setBackgroundImage:self.normalImage forState:UIControlStateNormal];
-        [cancelBtn setBackgroundImage:self.highlightedImage forState:UIControlStateHighlighted];
-        [cancelBtn addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
-        cancelBtn;
-    })];
+    if (_cancelTitle) {
+        _offsetY += kDividerHeight;
+        
+        [_actionSheet addSubview:({
+            UIButton *cancelBtn = [[UIButton alloc] init];
+            cancelBtn.frame = CGRectMake(0, _offsetY, self.frame.size.width, kActionItemHeight);
+            cancelBtn.tag = -1;
+            cancelBtn.backgroundColor = [UIColor whiteColor];
+            cancelBtn.titleLabel.font = [UIFont systemFontOfSize:kActionItemFontSize];
+            [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [cancelBtn setTitle:_cancelTitle forState:UIControlStateNormal];
+            [cancelBtn setBackgroundImage:self.normalImage forState:UIControlStateNormal];
+            [cancelBtn setBackgroundImage:self.highlightedImage forState:UIControlStateHighlighted];
+            [cancelBtn addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
+            cancelBtn;
+        })];
+        
+        _offsetY += kActionItemHeight;
+    }
 }
 
 #pragma mark - Actions

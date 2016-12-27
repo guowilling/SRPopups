@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, SROtherActionItemAlignment) {
  Delegate method
 
  @param actionSheet The SRActionSheet instance.
- @param index       Top is 0 and 0++ to down, but cancelBtn's index is -1.
+ @param index       Top is 0 and ++ to down, but cancelBtn's index is -1.
  */
 - (void)actionSheet:(SRActionSheet *)actionSheet didSelectSheet:(NSInteger)index;
 
@@ -52,91 +52,38 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
 @interface SRActionSheet : UIView
 
 /**
- Default is SROtherActionItemAlignmentCenter when no images but when there are images default is SROtherActionItemAlignmentLeft.
+ Default is SROtherActionItemAlignmentCenter when no images.
+ Default is SROtherActionItemAlignmentLeft when there are images.
  */
 @property (nonatomic, assign) SROtherActionItemAlignment otherActionItemAlignment;
 
-- (void)show;
-
-#pragma mark - BLOCK
-
 /**
- Show a action sheet with block, and the action item have title only.
-
- @param title            The title on the top.
- @param cancelTitle      The title of action item at the bottom.
- @param destructiveTitle The title of action item at the other action items bottom.
- @param otherTitles      The title of other action items.
- @param selectSheetBlock The call-back's block when select a action item.
- */
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                            cancelTitle:(NSString *)cancelTitle
-                       destructiveTitle:(NSString *)destructiveTitle
-                            otherTitles:(NSArray  *)otherTitles
-                        selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
-
-/**
- Show a action sheet with block, and the action item have title and image both.
+ Create a sheet with block.
  
- @param title            The title on the top.
- @param cancelTitle      The title of action item at the bottom.
- @param destructiveTitle The title of action item at the other action items bottom.
- @param otherTitles      The title of other action items.
- @param otherImages      The image of other action items.
+ @param title            Title on the top, not must.
+ @param cancelTitle      Title of action item at the bottom, not must.
+ @param destructiveTitle Title of action item at the other action items bottom, not must.
+ @param otherTitles      Title of other action items, must.
+ @param otherImages      Image of other action items, not must.
  @param selectSheetBlock The call-back's block when select a action item.
  */
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                            cancelTitle:(NSString *)cancelTitle
-                       destructiveTitle:(NSString *)destructiveTitle
-                            otherTitles:(NSArray  *)otherTitles
-                            otherImages:(NSArray  *)otherImages
-                       selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
-
-- (instancetype)initWithTitle:(NSString *)title
-                  cancelTitle:(NSString *)cancelTitle
-             destructiveTitle:(NSString *)destructiveTitle
-                  otherTitles:(NSArray  *)otherTitles
-             selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
-
-- (instancetype)initWithTitle:(NSString *)title
-                  cancelTitle:(NSString *)cancelTitle
-             destructiveTitle:(NSString *)destructiveTitle
-                  otherTitles:(NSArray  *)otherTitles
-                  otherImages:(NSArray  *)otherImages
-             selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
-
-#pragma mark - DELEGATE
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title
+                                cancelTitle:(NSString *)cancelTitle
+                           destructiveTitle:(NSString *)destructiveTitle
+                                otherTitles:(NSArray  *)otherTitles
+                                otherImages:(NSArray  *)otherImages
+                           selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 
 /**
- Show a action sheet with delegate, and the action item have title only.
+ Create a action sheet with delegate.
  */
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                            cancelTitle:(NSString *)cancelTitle
-                       destructiveTitle:(NSString *)destructiveTitle
-                            otherTitles:(NSArray  *)otherTitles
-                               delegate:(id<SRActionSheetDelegate>)delegate;
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title
+                                cancelTitle:(NSString *)cancelTitle
+                           destructiveTitle:(NSString *)destructiveTitle
+                                otherTitles:(NSArray  *)otherTitles
+                                otherImages:(NSArray  *)otherImages
+                                   delegate:(id<SRActionSheetDelegate>)delegate;
 
-/**
- Show a action sheet with delegate, and the action item have title and image both.
- */
-+ (void)sr_showActionSheetViewWithTitle:(NSString *)title
-                            cancelTitle:(NSString *)cancelTitle
-                       destructiveTitle:(NSString *)destructiveTitle
-                            otherTitles:(NSArray  *)otherTitles
-                            otherImages:(NSArray  *)otherImages
-                               delegate:(id<SRActionSheetDelegate>)delegate;
-
-- (instancetype)initWithTitle:(NSString *)title
-                  cancelTitle:(NSString *)cancelTitle
-             destructiveTitle:(NSString *)destructiveTitle
-                  otherTitles:(NSArray  *)otherTitles
-                  otherImages:(NSArray  *)otherImages
-                     delegate:(id<SRActionSheetDelegate>)delegate;
-
-- (instancetype)initWithTitle:(NSString *)title
-                  cancelTitle:(NSString *)cancelTitle
-             destructiveTitle:(NSString *)destructiveTitle
-                  otherTitles:(NSArray  *)otherTitles
-                     delegate:(id<SRActionSheetDelegate>)delegate;
+- (void)show;
 
 @end

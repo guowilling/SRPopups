@@ -3,10 +3,12 @@
 ### A brief style ActionSheet which is very similar to WeChat's ActionSheet.
 
 ## Features
+
 * There are two styles for other action items: only title, default alignment is left; title and image, default alignment is center.    
 * You can custom alignment through otherActionItemAlignment property.
 
 ## Show pictures
+
 ![image](./show1.jpg)
 ![image](./show2.jpg)    
 
@@ -14,6 +16,7 @@
 ![image](./show4.jpg)
 
 ## Usage
+
 ````objc
 // Only Title 
 // Alignment left.
@@ -66,6 +69,7 @@ actionSheet.otherActionItemAlignment = SROtherActionItemAlignmentCenter;
 ````
 
 ## Custom Settings
+
 ````objc
 /**
  Default is SROtherActionItemAlignmentCenter when no images but when there are images default is SROtherActionItemAlignmentLeft.
