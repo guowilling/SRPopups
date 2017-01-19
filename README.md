@@ -9,11 +9,9 @@
 
 ## Show pictures
 
-![image](./show1.jpg)
-![image](./show2.jpg)    
-
-![image](./show3.jpg)
-![image](./show4.jpg)
+![image](./show1.jpg) ![image](./show2.jpg)    
+***
+![image](./show3.jpg) ![image](./show4.jpg)
 
 ## Usage
 
