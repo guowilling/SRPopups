@@ -1,7 +1,5 @@
 # SRActionSheet
 
-### A brief style ActionSheet which is very similar to WeChat's ActionSheet.
-
 ## Features
 
 * There are two styles for other action items: only title, default alignment is left; title and image, default alignment is center.    
@@ -9,9 +7,17 @@
 
 ## Show pictures
 
-![image](./show1.jpg) ![image](./show2.jpg)    
+![image](./show1.jpg) ![image](./show2.jpg)  
+  
 ***
+
 ![image](./show3.jpg) ![image](./show4.jpg)
+
+### CocoaPods
+> Add **pod ‘SRActionSheet’** to the Podfile, then run **pod install** in the terminal.
+
+### Manual
+> Drag the **SRActionSheet** folder to the project.
 
 ## Usage
 
