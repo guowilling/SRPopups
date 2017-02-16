@@ -7,7 +7,7 @@
 //
 
 /**
- *  If you have any question, please issue or contact me.
+ *  If you have any question, submit an issue or contact me.
  *  QQ: 1990991510
  *  Email: guowilling@qq.com
  *
