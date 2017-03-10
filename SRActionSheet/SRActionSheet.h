@@ -11,7 +11,7 @@
  *  QQ: 1990991510
  *  Email: guowilling@qq.com
  *
- *  If this repo helps you, please give it a star, thanks a lot.
+ *  If this repo helped you, please give it a star.
  *  Github: https://github.com/guowilling/SRActionSheet
  *
  *  Have Fun.

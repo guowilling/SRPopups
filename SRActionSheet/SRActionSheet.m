@@ -184,7 +184,7 @@
     [self addSubview:({
         UIView *cover = [[UIView alloc] init];
         cover.frame = self.bounds;
-        cover.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        cover.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.33];
         [cover addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)]];
         _cover = cover;
     })];
