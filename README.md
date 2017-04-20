@@ -5,11 +5,6 @@
 * Provide two styles for other action items: only title, default alignment is left; title and image, default alignment is center.    
 * Support custom alignment through otherActionItemAlignment property.
 
-***
-
-* 其它选择表项提供两种样式: 只有标题, 默认左对齐方式居左; 标题和图像, 默认对齐方式居中.
-* 支持通过 otherActionItemAlignment 属性自定义对齐方式.
-
 ## Show
 
 ![image](./show1.jpg) ![image](./show2.jpg)  
@@ -77,7 +72,7 @@ actionSheet.otherActionItemAlignment = SROtherActionItemAlignmentCenter;
 [actionSheet show];
 ````
 
-## Custom
+## Custom Settings
 
 ````objc
 /**

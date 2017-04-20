@@ -13,27 +13,8 @@
 		686A05401D571771009CD2D9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A053F1D571771009CD2D9 /* ViewController.m */; };
 		686A05431D571771009CD2D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686A05411D571771009CD2D9 /* Main.storyboard */; };
 		686A05451D571771009CD2D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 686A05441D571771009CD2D9 /* Assets.xcassets */; };
-		686A05531D571771009CD2D9 /* SRActionSheetDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A05521D571771009CD2D9 /* SRActionSheetDemoTests.m */; };
-		686A055E1D571771009CD2D9 /* SRActionSheetDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A055D1D571771009CD2D9 /* SRActionSheetDemoUITests.m */; };
 		6E2F6C361D676034008083B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E2F6C341D676034008083B9 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		686A054F1D571771009CD2D9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 686A052D1D571771009CD2D9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 686A05341D571771009CD2D9;
-			remoteInfo = SRActionSheetDemo;
-		};
-		686A055A1D571771009CD2D9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 686A052D1D571771009CD2D9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 686A05341D571771009CD2D9;
-			remoteInfo = SRActionSheetDemo;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		68278CFC1D64596300441E49 /* SRActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRActionSheet.h; sourceTree = "<group>"; };
@@ -47,31 +28,11 @@
 		686A05421D571771009CD2D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		686A05441D571771009CD2D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		686A05491D571771009CD2D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		686A054E1D571771009CD2D9 /* SRActionSheetDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SRActionSheetDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		686A05521D571771009CD2D9 /* SRActionSheetDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRActionSheetDemoTests.m; sourceTree = "<group>"; };
-		686A05541D571771009CD2D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		686A05591D571771009CD2D9 /* SRActionSheetDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SRActionSheetDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		686A055D1D571771009CD2D9 /* SRActionSheetDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRActionSheetDemoUITests.m; sourceTree = "<group>"; };
-		686A055F1D571771009CD2D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E2F6C351D676034008083B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		686A05321D571771009CD2D9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		686A054B1D571771009CD2D9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		686A05561D571771009CD2D9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -95,8 +56,6 @@
 			children = (
 				68278CFB1D64596300441E49 /* SRActionSheet */,
 				686A05371D571771009CD2D9 /* SRActionSheetDemo */,
-				686A05511D571771009CD2D9 /* SRActionSheetDemoTests */,
-				686A055C1D571771009CD2D9 /* SRActionSheetDemoUITests */,
 				686A05361D571771009CD2D9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,8 +64,6 @@
 			isa = PBXGroup;
 			children = (
 				686A05351D571771009CD2D9 /* SRActionSheetDemo.app */,
-				686A054E1D571771009CD2D9 /* SRActionSheetDemoTests.xctest */,
-				686A05591D571771009CD2D9 /* SRActionSheetDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,12 +71,9 @@
 		686A05371D571771009CD2D9 /* SRActionSheetDemo */ = {
 			isa = PBXGroup;
 			children = (
-				686A053B1D571771009CD2D9 /* AppDelegate.h */,
-				686A053C1D571771009CD2D9 /* AppDelegate.m */,
 				686A053E1D571771009CD2D9 /* ViewController.h */,
 				686A053F1D571771009CD2D9 /* ViewController.m */,
-				686A05441D571771009CD2D9 /* Assets.xcassets */,
-				686A05491D571771009CD2D9 /* Info.plist */,
+				686A05411D571771009CD2D9 /* Main.storyboard */,
 				686A05381D571771009CD2D9 /* Supporting Files */,
 			);
 			path = SRActionSheetDemo;
@@ -128,29 +82,14 @@
 		686A05381D571771009CD2D9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				686A05411D571771009CD2D9 /* Main.storyboard */,
+				686A05441D571771009CD2D9 /* Assets.xcassets */,
+				686A05491D571771009CD2D9 /* Info.plist */,
 				6E2F6C341D676034008083B9 /* LaunchScreen.storyboard */,
 				686A05391D571771009CD2D9 /* main.m */,
+				686A053B1D571771009CD2D9 /* AppDelegate.h */,
+				686A053C1D571771009CD2D9 /* AppDelegate.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		686A05511D571771009CD2D9 /* SRActionSheetDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				686A05521D571771009CD2D9 /* SRActionSheetDemoTests.m */,
-				686A05541D571771009CD2D9 /* Info.plist */,
-			);
-			path = SRActionSheetDemoTests;
-			sourceTree = "<group>";
-		};
-		686A055C1D571771009CD2D9 /* SRActionSheetDemoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				686A055D1D571771009CD2D9 /* SRActionSheetDemoUITests.m */,
-				686A055F1D571771009CD2D9 /* Info.plist */,
-			);
-			path = SRActionSheetDemoUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,42 +112,6 @@
 			productReference = 686A05351D571771009CD2D9 /* SRActionSheetDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		686A054D1D571771009CD2D9 /* SRActionSheetDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 686A05651D571771009CD2D9 /* Build configuration list for PBXNativeTarget "SRActionSheetDemoTests" */;
-			buildPhases = (
-				686A054A1D571771009CD2D9 /* Sources */,
-				686A054B1D571771009CD2D9 /* Frameworks */,
-				686A054C1D571771009CD2D9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				686A05501D571771009CD2D9 /* PBXTargetDependency */,
-			);
-			name = SRActionSheetDemoTests;
-			productName = SRActionSheetDemoTests;
-			productReference = 686A054E1D571771009CD2D9 /* SRActionSheetDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		686A05581D571771009CD2D9 /* SRActionSheetDemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 686A05681D571771009CD2D9 /* Build configuration list for PBXNativeTarget "SRActionSheetDemoUITests" */;
-			buildPhases = (
-				686A05551D571771009CD2D9 /* Sources */,
-				686A05561D571771009CD2D9 /* Frameworks */,
-				686A05571D571771009CD2D9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				686A055B1D571771009CD2D9 /* PBXTargetDependency */,
-			);
-			name = SRActionSheetDemoUITests;
-			productName = SRActionSheetDemoUITests;
-			productReference = 686A05591D571771009CD2D9 /* SRActionSheetDemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -222,14 +125,6 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = Y4FK8UXDXW;
 						ProvisioningStyle = Manual;
-					};
-					686A054D1D571771009CD2D9 = {
-						CreatedOnToolsVersion = 7.3;
-						TestTargetID = 686A05341D571771009CD2D9;
-					};
-					686A05581D571771009CD2D9 = {
-						CreatedOnToolsVersion = 7.3;
-						TestTargetID = 686A05341D571771009CD2D9;
 					};
 				};
 			};
@@ -247,8 +142,6 @@
 			projectRoot = "";
 			targets = (
 				686A05341D571771009CD2D9 /* SRActionSheetDemo */,
-				686A054D1D571771009CD2D9 /* SRActionSheetDemoTests */,
-				686A05581D571771009CD2D9 /* SRActionSheetDemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -261,20 +154,6 @@
 				686A05451D571771009CD2D9 /* Assets.xcassets in Resources */,
 				6E2F6C361D676034008083B9 /* LaunchScreen.storyboard in Resources */,
 				686A05431D571771009CD2D9 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		686A054C1D571771009CD2D9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		686A05571D571771009CD2D9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,36 +171,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		686A054A1D571771009CD2D9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				686A05531D571771009CD2D9 /* SRActionSheetDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		686A05551D571771009CD2D9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				686A055E1D571771009CD2D9 /* SRActionSheetDemoUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		686A05501D571771009CD2D9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 686A05341D571771009CD2D9 /* SRActionSheetDemo */;
-			targetProxy = 686A054F1D571771009CD2D9 /* PBXContainerItemProxy */;
-		};
-		686A055B1D571771009CD2D9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 686A05341D571771009CD2D9 /* SRActionSheetDemo */;
-			targetProxy = 686A055A1D571771009CD2D9 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		686A05411D571771009CD2D9 /* Main.storyboard */ = {
@@ -455,52 +305,6 @@
 			};
 			name = Release;
 		};
-		686A05661D571771009CD2D9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = SRActionSheetDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stayreal.gwl.SRActionSheetDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SRActionSheetDemo.app/SRActionSheetDemo";
-			};
-			name = Debug;
-		};
-		686A05671D571771009CD2D9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = SRActionSheetDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stayreal.gwl.SRActionSheetDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SRActionSheetDemo.app/SRActionSheetDemo";
-			};
-			name = Release;
-		};
-		686A05691D571771009CD2D9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = SRActionSheetDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stayreal.gwl.SRActionSheetDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = SRActionSheetDemo;
-			};
-			name = Debug;
-		};
-		686A056A1D571771009CD2D9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = SRActionSheetDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stayreal.gwl.SRActionSheetDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = SRActionSheetDemo;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -518,24 +322,6 @@
 			buildConfigurations = (
 				686A05631D571771009CD2D9 /* Debug */,
 				686A05641D571771009CD2D9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		686A05651D571771009CD2D9 /* Build configuration list for PBXNativeTarget "SRActionSheetDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				686A05661D571771009CD2D9 /* Debug */,
-				686A05671D571771009CD2D9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		686A05681D571771009CD2D9 /* Build configuration list for PBXNativeTarget "SRActionSheetDemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				686A05691D571771009CD2D9 /* Debug */,
-				686A056A1D571771009CD2D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -6,15 +6,6 @@
 //  Copyright © 2016年 SR. All rights reserved.
 //
 
-/**
- *  If you have any question, submit an issue or contact me.
- *  QQ: 1990991510
- *  Email: guowilling@qq.com
- *  If this repo helped you, please give it a star.
- *  Github: https://github.com/guowilling/SRActionSheet
- *  Have Fun.
- */
-
 #import <UIKit/UIKit.h>
 
 @class SRActionSheet;
@@ -24,14 +15,11 @@ typedef NS_ENUM(NSInteger, SROtherActionItemAlignment) {
     SROtherActionItemAlignmentCenter
 };
 
-
 @protocol SRActionSheetDelegate <NSObject>
 
 @required
 
 /**
- Delegate method
-
  @param actionSheet The SRActionSheet instance.
  @param index       Top is 0 and ++ to down, but cancelBtn's index is -1.
  */
@@ -40,8 +28,6 @@ typedef NS_ENUM(NSInteger, SROtherActionItemAlignment) {
 @end
 
 /**
- Block callback
-
  @param actionSheet The same as the delegate.
  @param index       The same as the delegate.
  */
@@ -56,7 +42,7 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
 @property (nonatomic, assign) SROtherActionItemAlignment otherActionItemAlignment;
 
 /**
- Create a sheet with block.
+ Create a sheet with block callback.
  
  @param title            Title on the top, not must.
  @param cancelTitle      Title of action item at the bottom, not must.
@@ -65,22 +51,12 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
  @param otherImages      Image of other action items, not must.
  @param selectSheetBlock The call-back's block when select a action item.
  */
-+ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title
-                                cancelTitle:(NSString *)cancelTitle
-                           destructiveTitle:(NSString *)destructiveTitle
-                                otherTitles:(NSArray  *)otherTitles
-                                otherImages:(NSArray  *)otherImages
-                           selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 
 /**
- Create a action sheet with delegate.
+ Create a action sheet with delegate callback.
  */
-+ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title
-                                cancelTitle:(NSString *)cancelTitle
-                           destructiveTitle:(NSString *)destructiveTitle
-                                otherTitles:(NSArray  *)otherTitles
-                                otherImages:(NSArray  *)otherImages
-                                   delegate:(id<SRActionSheetDelegate>)delegate;
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages delegate:(id<SRActionSheetDelegate>)delegate;
 
 - (void)show;
 
