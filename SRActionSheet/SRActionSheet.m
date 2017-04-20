@@ -337,39 +337,6 @@
                      }];
 }
 
-#pragma mark - Other Methods
-
-- (void)setOtherActionItemAlignment:(SROtherActionItemAlignment)otherActionItemAlignment {
-    
-    _otherActionItemAlignment = otherActionItemAlignment;
-    
-    switch (otherActionItemAlignment) {
-        case SROtherActionItemAlignmentLeft:
-        {
-            for (UIView *actionItem in self.otherActionItems) {
-                UILabel *title = [actionItem viewWithTag:1];
-                title.textAlignment = NSTextAlignmentLeft;
-                CGRect newFrame = actionItem.frame;
-                newFrame.origin.x = 10;
-                actionItem.frame = newFrame;
-            }
-        }
-            break;
-            
-        case SROtherActionItemAlignmentCenter:
-        {
-            for (UIView *actionItem in self.otherActionItems) {
-                UILabel *title = [actionItem viewWithTag:1];
-                title.textAlignment = NSTextAlignmentCenter;
-                CGRect newFrame = actionItem.frame;
-                newFrame.origin.x = self.frame.size.width * 0.5 - newFrame.size.width * 0.5;
-                actionItem.frame = newFrame;
-            }
-        }
-            break;
-    }
-}
-
 #pragma mark - Tool Methods
 
 - (UIImage *)imageFromColor:(UIColor *)color {
@@ -404,6 +371,39 @@
     attrs[NSFontAttributeName] = font;
     CGSize maxSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
     return [string boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
+}
+
+#pragma mark - Public Methods
+
+- (void)setOtherActionItemAlignment:(SROtherActionItemAlignment)otherActionItemAlignment {
+    
+    _otherActionItemAlignment = otherActionItemAlignment;
+    
+    switch (otherActionItemAlignment) {
+        case SROtherActionItemAlignmentLeft:
+        {
+            for (UIView *actionItem in self.otherActionItems) {
+                UILabel *title = [actionItem viewWithTag:1];
+                title.textAlignment = NSTextAlignmentLeft;
+                CGRect newFrame = actionItem.frame;
+                newFrame.origin.x = 10;
+                actionItem.frame = newFrame;
+            }
+        }
+            break;
+            
+        case SROtherActionItemAlignmentCenter:
+        {
+            for (UIView *actionItem in self.otherActionItems) {
+                UILabel *title = [actionItem viewWithTag:1];
+                title.textAlignment = NSTextAlignmentCenter;
+                CGRect newFrame = actionItem.frame;
+                newFrame.origin.x = self.frame.size.width * 0.5 - newFrame.size.width * 0.5;
+                actionItem.frame = newFrame;
+            }
+        }
+            break;
+    }
 }
 
 @end
