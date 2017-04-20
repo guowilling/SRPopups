@@ -36,20 +36,20 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
 @interface SRActionSheet : UIView
 
 /**
- Default is SROtherActionItemAlignmentCenter when no images.
- Default is SROtherActionItemAlignmentLeft when there are images.
+ If no images default is SROtherActionItemAlignmentCenter otherwise default is SROtherActionItemAlignmentLeft.
  */
 @property (nonatomic, assign) SROtherActionItemAlignment otherActionItemAlignment;
 
 /**
  Create a sheet with block callback.
  
- @param title            Title on the top, not must.
+ @param title            Title In the top, not must.
  @param cancelTitle      Title of action item at the bottom, not must.
  @param destructiveTitle Title of action item at the other action items bottom, not must.
  @param otherTitles      Title of other action items, must.
  @param otherImages      Image of other action items, not must.
- @param selectSheetBlock The call-back's block when select a action item.
+ @param selectSheetBlock Callback block when select a action item.
+ @return A SRActionSheet object.
  */
 + (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
 
