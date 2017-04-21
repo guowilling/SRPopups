@@ -5,7 +5,7 @@
 * Provide two styles for other action items: only title, default alignment is left; title and image, default alignment is center.    
 * Support custom alignment through otherActionItemAlignment property.
 
-## Show
+## Screenshots
 
 ![image](./show1.jpg) ![image](./show2.jpg)  
 
@@ -85,5 +85,3 @@ actionSheet.otherActionItemAlignment = SROtherActionItemAlignmentCenter;
  */
 @property (nonatomic, assign) SROtherActionItemAlignment otherActionItemAlignment;
 ````
-
-**Have Fun.**
