@@ -29,10 +29,10 @@
     [self.testBtn3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.testBtn4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
-    [self.testBtn1 setTitle:@"OnlyTitle(Left)"        forState:UIControlStateNormal];
-    [self.testBtn2 setTitle:@"OnlyTitle(Center)"      forState:UIControlStateNormal];
-    [self.testBtn3 setTitle:@"TitleAndImage(Left)"    forState:UIControlStateNormal];
-    [self.testBtn4 setTitle:@"TitleAndImage(Center)"  forState:UIControlStateNormal];
+    [self.testBtn1 setTitle:@"OnlyTitle(LeftAlignment)"        forState:UIControlStateNormal];
+    [self.testBtn2 setTitle:@"OnlyTitle(CenterAlignment)"      forState:UIControlStateNormal];
+    [self.testBtn3 setTitle:@"TitleAndImage(LeftAlignment)"    forState:UIControlStateNormal];
+    [self.testBtn4 setTitle:@"TitleAndImage(CenterAlignment)"  forState:UIControlStateNormal];
 }
 
 - (IBAction)testBtn1Action:(UIButton *)sender {

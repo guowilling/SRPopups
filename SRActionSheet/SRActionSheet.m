@@ -389,9 +389,8 @@
                 newFrame.origin.x = 10;
                 actionItem.frame = newFrame;
             }
-        }
             break;
-            
+        }
         case SROtherActionItemAlignmentCenter:
         {
             for (UIView *actionItem in self.otherActionItems) {
@@ -401,8 +400,8 @@
                 newFrame.origin.x = self.frame.size.width * 0.5 - newFrame.size.width * 0.5;
                 actionItem.frame = newFrame;
             }
-        }
             break;
+        }
     }
 }
 
