@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, SROtherActionItemAlignment) {
  @param actionSheet The same as the delegate.
  @param index       The same as the delegate.
  */
-typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInteger index);
+typedef void (^SRActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInteger index);
 
 @interface SRActionSheet : UIView
 
@@ -50,7 +50,7 @@ typedef void (^ActionSheetDidSelectSheetBlock)(SRActionSheet *actionSheet, NSInt
  @param selectSheetBlock The callback block when select a action item.
  @return A SRActionSheet object.
  */
-+ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(SRActionSheetDidSelectSheetBlock)selectSheetBlock;
 
 /**
  Creates and returns an action sheet with delegate.

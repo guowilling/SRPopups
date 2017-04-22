@@ -30,7 +30,7 @@
 
 @property (nonatomic, weak) id<SRActionSheetDelegate> delegate;
 
-@property (nonatomic, copy) ActionSheetDidSelectSheetBlock selectSheetBlock;
+@property (nonatomic, copy) SRActionSheetDidSelectSheetBlock selectSheetBlock;
 
 @property (nonatomic, weak) UIView *cover;
 @property (nonatomic, weak) UIView *actionSheet;
@@ -79,12 +79,12 @@
 
 #pragma mark - BLOCK
 
-+ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock {
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(SRActionSheetDidSelectSheetBlock)selectSheetBlock {
     
     return [[self alloc] initWithTitle:title cancelTitle:cancelTitle destructiveTitle:destructiveTitle otherTitles:otherTitles otherImages:otherImages selectSheetBlock:selectSheetBlock];
 }
 
-- (instancetype)initWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock {
+- (instancetype)initWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(SRActionSheetDidSelectSheetBlock)selectSheetBlock {
     
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
         _title            = title;

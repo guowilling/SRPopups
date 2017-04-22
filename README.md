@@ -7,11 +7,11 @@
 
 ## Screenshots
 
-![image](./Screenshots/show1.png) ![image](./Screenshots/show2.png)  
+![image](./Screenshots/screenshot1.png) ![image](./Screenshots/screenshot2.png)  
 
 ***
 
-![image](./Screenshots/show3.png) ![image](./Screenshots/show4.png)
+![image](./Screenshots/screenshot3.png) ![image](./Screenshots/screenshot4.png)
 
 ## Installation
 
@@ -36,7 +36,7 @@
  @param selectSheetBlock The callback block when select a action item.
  @return A SRActionSheet object.
  */
-+ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(ActionSheetDidSelectSheetBlock)selectSheetBlock;
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(SRActionSheetDidSelectSheetBlock)selectSheetBlock;
 
 /**
  Creates and returns an action sheet with delegate.
@@ -70,7 +70,7 @@ SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharin
                                                        destructiveTitle:nil
                                                             otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ", @"QQ空间"]
                                                             otherImages:nil
-                                                       selectSheetBlock:^(SRActionSheet *actionSheetView, NSInteger index) {
+                                                       selectSheetBlock:^(SRActionSheet *actionSheet, NSInteger index) {
                                                            NSLog(@"%zd", index);
                                                        }];
 [actionSheet show];                        
@@ -88,7 +88,7 @@ SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharin
                                                                           [UIImage imageNamed:@"share_wx_pengyouquan"],
                                                                           [UIImage imageNamed:@"share_qq_friend"],
                                                                           [UIImage imageNamed:@"share_qq_kongjian"]]
-                                                       selectSheetBlock:^(SRActionSheet *actionSheetView, NSInteger index) {
+                                                       selectSheetBlock:^(SRActionSheet *actionSheet, NSInteger index) {
                                                            NSLog(@"%zd", index);
                                                        }];
 [actionSheet show];
