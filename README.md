@@ -1,5 +1,7 @@
 # SRActionSheet
 
+A custom style ActionSheet, provide two styles for other action items.
+
 ## Features
 
 * There are title, cancel citle, destructive title, other titles, other images for action sheet.
@@ -22,7 +24,7 @@
 > Drag the **SRActionSheet** folder to the project.
 
 
-## APIs
+## Usage
 
 ````objc
 /**
@@ -37,23 +39,10 @@
  @return A SRActionSheet object.
  */
 + (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(SRActionSheetDidSelectSheetBlock)selectSheetBlock;
-
-/**
- Creates and returns an action sheet with delegate.
- */
-+ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages delegate:(id<SRActionSheetDelegate>)delegate;
-
-/**
- Displays the receiver.
- */
-- (void)show;
 ````
 
-## Usage
-
 ````objc
-// Only title for other items 
-
+// Only title for other items
 // Left Alignment
 SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
                                                             cancelTitle:@"cancel"
@@ -62,37 +51,11 @@ SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharin
                                                             otherImages:nil
                                                                delegate:self];
 actionSheet.otherActionItemAlignment = SROtherActionItemAlignmentLeft;
-[actionSheet show];       
-
-// Center Alignment which is default
-SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
-                                                            cancelTitle:@"cancel"
-                                                       destructiveTitle:nil
-                                                            otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ", @"QQ空间"]
-                                                            otherImages:nil
-                                                       selectSheetBlock:^(SRActionSheet *actionSheet, NSInteger index) {
-                                                           NSLog(@"%zd", index);
-                                                       }];
-[actionSheet show];                        
+[actionSheet show];                      
 ````
 
 ````objc
 // Images and title for other items  
-
-// Left Alignment which is default
-SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
-                                                            cancelTitle:nil
-                                                       destructiveTitle:@"destructive"
-                                                            otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ", @"QQ空间"]
-                                                            otherImages:@[[UIImage imageNamed:@"share_wx_friend"],
-                                                                          [UIImage imageNamed:@"share_wx_pengyouquan"],
-                                                                          [UIImage imageNamed:@"share_qq_friend"],
-                                                                          [UIImage imageNamed:@"share_qq_kongjian"]]
-                                                       selectSheetBlock:^(SRActionSheet *actionSheet, NSInteger index) {
-                                                           NSLog(@"%zd", index);
-                                                       }];
-[actionSheet show];
-
 // Center Alignment
 SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
                                                             cancelTitle:nil
@@ -107,12 +70,4 @@ actionSheet.otherActionItemAlignment = SROtherActionItemAlignmentCenter;
 [actionSheet show];
 ````
 
-## Custom Settings
-
-````objc
-/**
- The alignment of other action items. 
- If no images default is SROtherActionItemAlignmentCenter otherwise default is SROtherActionItemAlignmentLeft.
- */
-@property (nonatomic, assign) SROtherActionItemAlignment otherActionItemAlignment;
-````
+See the demo for more contents.

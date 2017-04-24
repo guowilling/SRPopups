@@ -5,6 +5,9 @@
 //  Created by 郭伟林 on 16/7/5.
 //  Copyright © 2016年 SR. All rights reserved.
 //
+//  GitHub: https://github.com/guowilling/SRActionSheet
+//  If you have any questions, submit an issue or email me. <guowilling90@gmail.com>
+//
 
 #import <UIKit/UIKit.h>
 
