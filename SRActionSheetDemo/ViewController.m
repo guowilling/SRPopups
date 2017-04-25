@@ -20,6 +20,11 @@
 
 @implementation ViewController
 
+- (BOOL)prefersStatusBarHidden {
+    
+    return YES;
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -38,9 +43,9 @@
 - (IBAction)testBtn1Action:(UIButton *)sender {
     
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
-                                                                cancelTitle:@"cancel"
+                                                                cancelTitle:nil
                                                            destructiveTitle:@"destructive"
-                                                                otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ", @"QQ空间"]
+                                                                otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                                 otherImages:nil
                                                                    delegate:self];
     actionSheet.otherActionItemAlignment = SROtherActionItemAlignmentLeft;
@@ -52,7 +57,7 @@
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
                                                                 cancelTitle:@"cancel"
                                                            destructiveTitle:nil
-                                                                otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ", @"QQ空间"]
+                                                                otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                                 otherImages:nil
                                                            selectSheetBlock:^(SRActionSheet *actionSheet, NSInteger index) {
                                                                NSLog(@"%zd", index);
@@ -63,9 +68,9 @@
 - (IBAction)testBtn3Action:(UIButton *)sender {
     
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
-                                                                cancelTitle:nil
-                                                           destructiveTitle:@"destructive"
-                                                                otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ", @"QQ空间"]
+                                                                cancelTitle:@"cancel"
+                                                           destructiveTitle:nil
+                                                                otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                                 otherImages:@[[UIImage imageNamed:@"share_wx_friend"],
                                                                               [UIImage imageNamed:@"share_wx_pengyouquan"],
                                                                               [UIImage imageNamed:@"share_qq_friend"],
@@ -80,8 +85,8 @@
     
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
                                                                 cancelTitle:nil
-                                                           destructiveTitle:nil
-                                                                otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ", @"QQ空间"]
+                                                           destructiveTitle:@"destructive"
+                                                                otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                                 otherImages:@[[UIImage imageNamed:@"share_wx_friend"],
                                                                               [UIImage imageNamed:@"share_wx_pengyouquan"],
                                                                               [UIImage imageNamed:@"share_qq_friend"],

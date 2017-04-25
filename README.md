@@ -2,27 +2,10 @@
 
 A custom style ActionSheet, provide two styles for other action items.
 
-## Features
-
-* There are title, cancel citle, destructive title, other titles, other images for action sheet.
-* Every one of them except other titles is optional.
-
 ## Screenshots
 
-![image](./Screenshots/screenshot1.png) ![image](./Screenshots/screenshot2.png)  
-
-***
-
-![image](./Screenshots/screenshot3.png) ![image](./Screenshots/screenshot4.png)
-
-## Installation
-
-### CocoaPods
-> Add **pod ‘SRActionSheet’** to the Podfile, then run **pod install** in the terminal.
-
-### Manual
-> Drag the **SRActionSheet** folder to the project.
-
+![image](./screenshot1.jpg)
+![image](./screenshot2.jpg)
 
 ## Usage
 
@@ -43,31 +26,31 @@ A custom style ActionSheet, provide two styles for other action items.
 
 ````objc
 // Only title for other items
-// Left Alignment
 SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
                                                             cancelTitle:@"cancel"
-                                                       destructiveTitle:@"destructive"
-                                                            otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ", @"QQ空间"]
+                                                       destructiveTitle:nil
+                                                            otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                             otherImages:nil
-                                                               delegate:self];
-actionSheet.otherActionItemAlignment = SROtherActionItemAlignmentLeft;
-[actionSheet show];                      
+                                                       selectSheetBlock:^(SRActionSheet *actionSheet, NSInteger index) {
+                                                           NSLog(@"%zd", index);
+                                                       }];
+[actionSheet show];                     
 ````
 
 ````objc
-// Images and title for other items  
-// Center Alignment
+// Image and title for other items
 SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
-                                                            cancelTitle:nil
+                                                            cancelTitle:@"cancel"
                                                        destructiveTitle:nil
-                                                            otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ", @"QQ空间"]
+                                                            otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                             otherImages:@[[UIImage imageNamed:@"share_wx_friend"],
                                                                           [UIImage imageNamed:@"share_wx_pengyouquan"],
                                                                           [UIImage imageNamed:@"share_qq_friend"],
                                                                           [UIImage imageNamed:@"share_qq_kongjian"]]
-                                                               delegate:self];
-actionSheet.otherActionItemAlignment = SROtherActionItemAlignmentCenter;
+                                                       selectSheetBlock:^(SRActionSheet *actionSheet, NSInteger index) {
+                                                           NSLog(@"%zd", index);
+                                                       }];
 [actionSheet show];
 ````
 
-See the demo for more contents.
+More contents please see SRActionsheetDemo.
