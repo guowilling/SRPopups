@@ -34,17 +34,17 @@
     [self.testBtn3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.testBtn4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
-    [self.testBtn1 setTitle:@"OnlyTitle(LeftAlignment)"        forState:UIControlStateNormal];
-    [self.testBtn2 setTitle:@"OnlyTitle(CenterAlignment)"      forState:UIControlStateNormal];
-    [self.testBtn3 setTitle:@"TitleAndImage(LeftAlignment)"    forState:UIControlStateNormal];
-    [self.testBtn4 setTitle:@"TitleAndImage(CenterAlignment)"  forState:UIControlStateNormal];
+    [self.testBtn1 setTitle:@"OnlyTitle(LeftAlignment)"       forState:UIControlStateNormal];
+    [self.testBtn2 setTitle:@"OnlyTitle(CenterAlignment)"     forState:UIControlStateNormal];
+    [self.testBtn3 setTitle:@"TitleAndImage(LeftAlignment)"   forState:UIControlStateNormal];
+    [self.testBtn4 setTitle:@"TitleAndImage(CenterAlignment)" forState:UIControlStateNormal];
 }
 
 - (IBAction)testBtn1Action:(UIButton *)sender {
     
-    SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
+    SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                 cancelTitle:nil
-                                                           destructiveTitle:@"destructive"
+                                                           destructiveTitle:nil
                                                                 otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                                 otherImages:nil
                                                                    delegate:self];
@@ -54,8 +54,8 @@
 
 - (IBAction)testBtn2Action:(UIButton *)sender {
 
-    SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
-                                                                cancelTitle:@"cancel"
+    SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
+                                                                cancelTitle:@"取消"
                                                            destructiveTitle:nil
                                                                 otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                                 otherImages:nil
@@ -67,8 +67,8 @@
 
 - (IBAction)testBtn3Action:(UIButton *)sender {
     
-    SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
-                                                                cancelTitle:@"cancel"
+    SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
+                                                                cancelTitle:nil
                                                            destructiveTitle:nil
                                                                 otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                                 otherImages:@[[UIImage imageNamed:@"share_wx_friend"],
@@ -83,9 +83,9 @@
 
 - (IBAction)testBtn4Action:(UIButton *)sender {
     
-    SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:@"Sharing"
-                                                                cancelTitle:nil
-                                                           destructiveTitle:@"destructive"
+    SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
+                                                                cancelTitle:@"取消"
+                                                           destructiveTitle:nil
                                                                 otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                                 otherImages:@[[UIImage imageNamed:@"share_wx_friend"],
                                                                               [UIImage imageNamed:@"share_wx_pengyouquan"],
