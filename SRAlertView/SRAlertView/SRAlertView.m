@@ -9,14 +9,25 @@
 #import "SRAlertView.h"
 #import "FXBlurView.h"
 
-#pragma mark - Screen Frame
+#pragma mark - Frames
 
 #define SCREEN_BOUNDS         [UIScreen mainScreen].bounds
 #define SCREEN_WIDTH          [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT         [UIScreen mainScreen].bounds.size.height
 #define SCREEN_ADJUST(Value)  SCREEN_WIDTH * (Value) / 375.0f
 
-#pragma mark - Color
+#define kAlertViewW            275.0f
+#define kAlertViewTitleH       20.0f
+#define kAlertViewIconWH       50.0f
+#define kAlertViewBtnH         50.0f
+#define kAlertViewMessageMinH  70.0f
+#define kVerticalMargin        20.0f
+
+#define kTitleFont     [UIFont boldSystemFontOfSize:SCREEN_ADJUST(18)];
+#define kMessageFont   [UIFont systemFontOfSize:SCREEN_ADJUST(15)];
+#define kBtnTitleFont  [UIFont systemFontOfSize:SCREEN_ADJUST(16)];
+
+#pragma mark - Colors
 
 #define COLOR_RGB(R, G, B)  [UIColor colorWithRed:(R/255.0f) green:(G/255.0f) blue:(B/255.0f) alpha:1.0f]
 
@@ -32,8 +43,6 @@ colorWithRed:((float)((RGBValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((RGBValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 
-#pragma mark - Use Colors
-
 #define kTitleLabelColor                UICOLOR_FROM_HEX_ALPHA(0x000000, 1.0)
 #define kMessageLabelColor              UICOLOR_FROM_HEX_ALPHA(0x313131, 1.0)
 
@@ -41,19 +50,8 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 #define kBtnHighlightedTitleColor       UICOLOR_FROM_HEX_ALPHA(0x4A4A4A, 1.0)
 #define kBtnHighlightedBackgroundColor  UICOLOR_FROM_HEX_ALPHA(0xF76B1E, 0.15)
 
-#define kLineBackgroundColor [UIColor colorWithRed:1.00 green:0.92 blue:0.91 alpha:1.00]
+#define kLineBackgroundColor  [UIColor colorWithRed:1.00 green:0.92 blue:0.91 alpha:1.00]
 
-#pragma mark - Use Frames
-
-#define kAlertViewW            275.0f
-#define kAlertViewTitleH       20.0f
-#define kAlertViewIconWH       50.0f
-#define kAlertViewBtnH         50.0f
-#define kAlertViewMessageMinH  70.0f
-
-#define kTitleFont     [UIFont boldSystemFontOfSize:SCREEN_ADJUST(18)];
-#define kMessageFont   [UIFont systemFontOfSize:SCREEN_ADJUST(15)];
-#define kBtnTitleFont  [UIFont systemFontOfSize:SCREEN_ADJUST(16)];
 
 @interface SRAlertView ()
 
@@ -168,28 +166,50 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
         _alertView;
     })];
     
-    CGFloat verticalMargin = 20;
-    if (_title) {
-        [_alertView addSubview:({
-            _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, verticalMargin, kAlertViewW, kAlertViewTitleH)];
-            _titleLabel.text          = _title;
-            _titleLabel.textAlignment = NSTextAlignmentCenter;
-            _titleLabel.textColor     = kTitleLabelColor;
-            _titleLabel.font          = kTitleFont;
-            _titleLabel;
-        })];
-    }
+    [self setupTitleView];
     
-    if (_icon) {
-        if (!_title) { // the icon title will be ignored if there is text title already
-            [_alertView addSubview:({
-                _iconImageView = [[UIImageView alloc] initWithImage:_icon];
-                _iconImageView.contentMode = UIViewContentModeScaleAspectFit;
-                _iconImageView.frame = CGRectMake((kAlertViewW - kAlertViewIconWH) * 0.5, verticalMargin, kAlertViewIconWH, kAlertViewIconWH);
-                _iconImageView;
-            })];
-        }
+    [self setupIconImageView];
+    
+    [self setupMessageLabel];
+    
+    _alertView.frame  = CGRectMake(0, 0, kAlertViewW, CGRectGetMaxY(_messageLabel.frame) + kAlertViewBtnH + kVerticalMargin);
+    _alertView.center = self.center;
+    
+    [self setupActions];
+}
+
+- (void)setupTitleView {
+    
+    if (!_title || _title.length == 0) {
+        return;
     }
+    [_alertView addSubview:({
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kVerticalMargin, kAlertViewW, kAlertViewTitleH)];
+        _titleLabel.text          = _title;
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.textColor     = kTitleLabelColor;
+        _titleLabel.font          = kTitleFont;
+        _titleLabel;
+    })];
+}
+
+- (void)setupIconImageView {
+    
+    if (_title && _title.length > 0) { // the icon title will be ignored if there is text title already
+        return;
+    }
+    if (!_icon) {
+        return;
+    }
+    [_alertView addSubview:({
+        _iconImageView = [[UIImageView alloc] initWithImage:_icon];
+        _iconImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _iconImageView.frame = CGRectMake((kAlertViewW - kAlertViewIconWH) * 0.5, kVerticalMargin, kAlertViewIconWH, kAlertViewIconWH);
+        _iconImageView;
+    })];
+}
+
+- (void)setupMessageLabel {
     
     CGFloat messageLabelSpacing = 20;
     [_alertView addSubview:({
@@ -209,13 +229,13 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
         }
         [_messageLabel sizeToFit];
         CGFloat messageLabH = expectSize.height < kAlertViewMessageMinH ? kAlertViewMessageMinH : expectSize.height;
-        CGFloat messageLabY = _titleLabel ? (CGRectGetMaxY(_titleLabel.frame) + verticalMargin) : (CGRectGetMaxY(_iconImageView.frame) + verticalMargin * 0.5);
+        CGFloat messageLabY = _titleLabel ? (CGRectGetMaxY(_titleLabel.frame) + kVerticalMargin) : (CGRectGetMaxY(_iconImageView.frame) + kVerticalMargin * 0.5);
         _messageLabel.frame = CGRectMake(messageLabelSpacing, messageLabY, kAlertViewW - messageLabelSpacing * 2, messageLabH);
         _messageLabel;
     })];
-    
-    _alertView.frame  = CGRectMake(0, 0, kAlertViewW, CGRectGetMaxY(_messageLabel.frame) + kAlertViewBtnH + verticalMargin);
-    _alertView.center = self.center;
+}
+
+- (void)setupActions {
     
     CGFloat btnY = _alertView.frame.size.height - kAlertViewBtnH;
     if (_leftActionTitle) {
@@ -425,26 +445,20 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
     _blurEffect = blurEffect;
 }
 
-- (void)setActionWhenHighlightedTitleColor:(UIColor *)actionWhenHighlightedTitleColor {
+- (void)setActionTitleColorWhenHighlighted:(UIColor *)actionTitleColorWhenHighlighted {
     
-    if (_actionWhenHighlightedTitleColor == actionWhenHighlightedTitleColor) {
-        return;
-    }
-    _actionWhenHighlightedTitleColor = actionWhenHighlightedTitleColor;
+    _actionTitleColorWhenHighlighted = actionTitleColorWhenHighlighted;
     
-    [self.leftAction  setTitleColor:actionWhenHighlightedTitleColor forState:UIControlStateHighlighted];
-    [self.rightAction setTitleColor:actionWhenHighlightedTitleColor forState:UIControlStateHighlighted];
+    [self.leftAction  setTitleColor:actionTitleColorWhenHighlighted forState:UIControlStateHighlighted];
+    [self.rightAction setTitleColor:actionTitleColorWhenHighlighted forState:UIControlStateHighlighted];
 }
 
-- (void)setActionWhenHighlightedBackgroundColor:(UIColor *)actionWhenHighlightedBackgroundColor {
+- (void)setActionBackgroundColorWhenHighlighted:(UIColor *)actionBackgroundColorWhenHighlighted {
     
-    if (_actionWhenHighlightedBackgroundColor == actionWhenHighlightedBackgroundColor) {
-        return;
-    }
-    _actionWhenHighlightedBackgroundColor = actionWhenHighlightedBackgroundColor;
+    _actionBackgroundColorWhenHighlighted = actionBackgroundColorWhenHighlighted;
     
-    [self.leftAction  setBackgroundImage:[self imageWithColor:actionWhenHighlightedBackgroundColor] forState:UIControlStateHighlighted];
-    [self.rightAction setBackgroundImage:[self imageWithColor:actionWhenHighlightedBackgroundColor] forState:UIControlStateHighlighted];
+    [self.leftAction  setBackgroundImage:[self imageWithColor:actionBackgroundColorWhenHighlighted] forState:UIControlStateHighlighted];
+    [self.rightAction setBackgroundImage:[self imageWithColor:actionBackgroundColorWhenHighlighted] forState:UIControlStateHighlighted];
 }
 
 @end

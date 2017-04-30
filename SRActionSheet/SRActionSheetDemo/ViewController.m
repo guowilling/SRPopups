@@ -59,9 +59,9 @@
                                                            destructiveTitle:nil
                                                                 otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                                 otherImages:nil
-                                                           selectSheetBlock:^(SRActionSheet *actionSheet, NSInteger index) {
-                                                               NSLog(@"%zd", index);
-                                                           }];
+                                                          selectActionBlock:^(SRActionSheet *actionSheet, NSInteger index) {
+                                                              NSLog(@"%zd", index);
+                                                          }];
     [actionSheet show];
 }
 
@@ -75,9 +75,9 @@
                                                                               [UIImage imageNamed:@"share_wx_pengyouquan"],
                                                                               [UIImage imageNamed:@"share_qq_friend"],
                                                                               [UIImage imageNamed:@"share_qq_kongjian"]]
-                                                           selectSheetBlock:^(SRActionSheet *actionSheet, NSInteger index) {
-                                                               NSLog(@"%zd", index);
-                                                           }];
+                                                          selectActionBlock:^(SRActionSheet *actionSheet, NSInteger index) {
+                                                              NSLog(@"%zd", index);
+                                                          }];
     [actionSheet show];
 }
 

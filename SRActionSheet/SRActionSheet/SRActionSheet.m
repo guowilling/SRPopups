@@ -30,7 +30,7 @@
 
 @property (nonatomic, weak) id<SRActionSheetDelegate> delegate;
 
-@property (nonatomic, copy) SRActionSheetDidSelectSheetBlock selectSheetBlock;
+@property (nonatomic, copy) SRActionSheetDidSelectActionBlock selectActionBlock;
 
 @property (nonatomic, weak) UIView *cover;
 @property (nonatomic, weak) UIView *actionSheet;
@@ -79,20 +79,20 @@
 
 #pragma mark - BLOCK
 
-+ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(SRActionSheetDidSelectSheetBlock)selectSheetBlock {
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectActionBlock:(SRActionSheetDidSelectActionBlock)selectActionBlock {
     
-    return [[self alloc] initWithTitle:title cancelTitle:cancelTitle destructiveTitle:destructiveTitle otherTitles:otherTitles otherImages:otherImages selectSheetBlock:selectSheetBlock];
+    return [[self alloc] initWithTitle:title cancelTitle:cancelTitle destructiveTitle:destructiveTitle otherTitles:otherTitles otherImages:otherImages selectActionBlock:selectActionBlock];
 }
 
-- (instancetype)initWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectSheetBlock:(SRActionSheetDidSelectSheetBlock)selectSheetBlock {
+- (instancetype)initWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectActionBlock:(SRActionSheetDidSelectActionBlock)selectActionBlock {
     
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
-        _title            = title;
-        _cancelTitle      = cancelTitle;
-        _destructiveTitle = destructiveTitle;
-        _otherTitles      = otherTitles;
-        _otherImages      = otherImages;
-        _selectSheetBlock = selectSheetBlock;
+        _title             = title;
+        _cancelTitle       = cancelTitle;
+        _destructiveTitle  = destructiveTitle;
+        _otherTitles       = otherTitles;
+        _otherImages       = otherImages;
+        _selectActionBlock = selectActionBlock;
         [self setupCover];
         [self setupActionSheet];
     }
@@ -131,6 +131,8 @@
         _actionSheet = actionSheet;
     })];
     
+    _offsetY = 0;
+    
     [self setupTitleLabel];
     
     [self setupOtherActionItems];
@@ -155,28 +157,28 @@
         UIView *cover = [[UIView alloc] init];
         cover.frame = self.bounds;
         cover.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.33];
+        cover.alpha = 0;
         [cover addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)]];
         _cover = cover;
     })];
-    _cover.alpha = 0;
 }
 
 - (void)setupTitleLabel {
     
-    _offsetY = 0;
-    if (_title && _title.length > 0) {
-        [_actionSheet addSubview:({
-            UILabel *titleLabel        = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, kActionItemHeight)];
-            titleLabel.backgroundColor = [UIColor whiteColor];
-            titleLabel.textColor       = kTitleColor;
-            titleLabel.textAlignment   = NSTextAlignmentCenter;
-            titleLabel.font            = [UIFont systemFontOfSize:kTitleFontSize];
-            titleLabel.numberOfLines   = 0;
-            titleLabel.text            = self.title;
-            titleLabel;
-        })];
-        _offsetY += kActionItemHeight + kLineHeight;
+    if (!_title && _title.length == 0) {
+        return;
     }
+    [_actionSheet addSubview:({
+        UILabel *titleLabel        = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, kActionItemHeight)];
+        titleLabel.backgroundColor = [UIColor whiteColor];
+        titleLabel.textColor       = kTitleColor;
+        titleLabel.textAlignment   = NSTextAlignmentCenter;
+        titleLabel.font            = [UIFont systemFontOfSize:kTitleFontSize];
+        titleLabel.numberOfLines   = 0;
+        titleLabel.text            = self.title;
+        titleLabel;
+    })];
+    _offsetY += kActionItemHeight + kLineHeight;
 }
 
 - (void)setupOtherActionItems {
@@ -193,11 +195,10 @@
             [otherBtn setBackgroundImage:self.normalImage forState:UIControlStateNormal];
             [otherBtn setBackgroundImage:self.highlightedImage forState:UIControlStateHighlighted];
             [otherBtn addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
-            
             [otherBtn addSubview:({
                 UIView *otherItem = [[UIView alloc] init];
                 otherItem.backgroundColor = [UIColor clearColor];
-                
+                otherItem.userInteractionEnabled = NO;
                 CGSize maxTitleSize = [self maxSizeInStrings:_otherTitles];
                 if (_otherImages && _otherImages.count > 0) {
                     UIImageView *icon = [[UIImageView alloc] init];
@@ -208,7 +209,6 @@
                         icon.tag = 2;
                         icon;
                     })];
-                    
                     [otherItem addSubview:({
                         UILabel *title = [[UILabel alloc] init];
                         title.frame = CGRectMake(CGRectGetMaxX(icon.frame), 0, maxTitleSize.width, kActionItemHeight);
@@ -219,7 +219,6 @@
                         title;
                     })];
                     otherItem.frame = CGRectMake(10, 0, kActionItemHeight + maxTitleSize.width, kActionItemHeight);
-                    
                 } else {
                     [otherItem addSubview:({
                         UILabel *title = [[UILabel alloc] init];
@@ -233,12 +232,9 @@
                     })];
                     otherItem.frame = CGRectMake(self.frame.size.width * 0.5 - maxTitleSize.width * 0.5, 0, maxTitleSize.width, kActionItemHeight);
                 }
-                
                 [self.otherActionItems addObject:otherItem];
-                otherItem.userInteractionEnabled = NO;
                 otherItem;
             })];
-            
             if (i == _otherTitles.count - 1) {
                 _offsetY += kActionItemHeight;
             } else {
@@ -251,52 +247,54 @@
 
 - (void)setupDestructiveActionItem {
     
-    if (_destructiveTitle && _destructiveTitle.length > 0) {
-        _offsetY += kLineHeight;
-        [_actionSheet addSubview:({
-            UIButton *destructiveButton = [[UIButton alloc] init];
-            destructiveButton.frame = CGRectMake(0, _offsetY, self.frame.size.width, kActionItemHeight);
-            destructiveButton.tag = _otherTitles.count ? _otherTitles.count : 0;
-            destructiveButton.backgroundColor = [UIColor whiteColor];
-            destructiveButton.titleLabel.font = [UIFont systemFontOfSize:kActionItemFontSize];
-            [destructiveButton setTitleColor:kDestructiveItemNormalColor forState:UIControlStateNormal];
-            [destructiveButton setTitle:_destructiveTitle forState:UIControlStateNormal];
-            [destructiveButton setBackgroundImage:self.normalImage forState:UIControlStateNormal];
-            [destructiveButton setBackgroundImage:self.highlightedImage forState:UIControlStateHighlighted];
-            [destructiveButton addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
-            destructiveButton;
-        })];
-        _offsetY += kActionItemHeight;
+    if (!_destructiveTitle && _destructiveTitle.length == 0) {
+        return;
     }
+    _offsetY += kLineHeight;
+    [_actionSheet addSubview:({
+        UIButton *destructiveButton = [[UIButton alloc] init];
+        destructiveButton.frame = CGRectMake(0, _offsetY, self.frame.size.width, kActionItemHeight);
+        destructiveButton.tag = _otherTitles.count ? _otherTitles.count : 0;
+        destructiveButton.backgroundColor = [UIColor whiteColor];
+        destructiveButton.titleLabel.font = [UIFont systemFontOfSize:kActionItemFontSize];
+        [destructiveButton setTitleColor:kDestructiveItemNormalColor forState:UIControlStateNormal];
+        [destructiveButton setTitle:_destructiveTitle forState:UIControlStateNormal];
+        [destructiveButton setBackgroundImage:self.normalImage forState:UIControlStateNormal];
+        [destructiveButton setBackgroundImage:self.highlightedImage forState:UIControlStateHighlighted];
+        [destructiveButton addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
+        destructiveButton;
+    })];
+    _offsetY += kActionItemHeight;
 }
 
 - (void)setupCancelActionItem {
     
-    if (_cancelTitle) {
-        _offsetY += kDividerHeight;
-        [_actionSheet addSubview:({
-            UIButton *cancelBtn = [[UIButton alloc] init];
-            cancelBtn.frame = CGRectMake(0, _offsetY, self.frame.size.width, kActionItemHeight);
-            cancelBtn.tag = -1;
-            cancelBtn.backgroundColor = [UIColor whiteColor];
-            cancelBtn.titleLabel.font = [UIFont systemFontOfSize:kActionItemFontSize];
-            [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [cancelBtn setTitle:_cancelTitle forState:UIControlStateNormal];
-            [cancelBtn setBackgroundImage:self.normalImage forState:UIControlStateNormal];
-            [cancelBtn setBackgroundImage:self.highlightedImage forState:UIControlStateHighlighted];
-            [cancelBtn addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
-            cancelBtn;
-        })];
-        _offsetY += kActionItemHeight;
+    if (!_cancelTitle || _cancelTitle.length == 0) {
+        return;
     }
+    _offsetY += kDividerHeight;
+    [_actionSheet addSubview:({
+        UIButton *cancelBtn = [[UIButton alloc] init];
+        cancelBtn.frame = CGRectMake(0, _offsetY, self.frame.size.width, kActionItemHeight);
+        cancelBtn.tag = -1;
+        cancelBtn.backgroundColor = [UIColor whiteColor];
+        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:kActionItemFontSize];
+        [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [cancelBtn setTitle:_cancelTitle forState:UIControlStateNormal];
+        [cancelBtn setBackgroundImage:self.normalImage forState:UIControlStateNormal];
+        [cancelBtn setBackgroundImage:self.highlightedImage forState:UIControlStateHighlighted];
+        [cancelBtn addTarget:self action:@selector(didSelectSheet:) forControlEvents:UIControlEventTouchUpInside];
+        cancelBtn;
+    })];
+    _offsetY += kActionItemHeight;
 }
 
 #pragma mark - Actions
 
 - (void)didSelectSheet:(UIButton *)button {
     
-    if (_selectSheetBlock) {
-        _selectSheetBlock(self, button.tag);
+    if (_selectActionBlock) {
+        _selectActionBlock(self, button.tag);
     }
     if ([_delegate respondsToSelector:@selector(actionSheet:didSelectSheet:)]) {
         [_delegate actionSheet:self didSelectSheet:button.tag];

@@ -98,6 +98,7 @@
 			children = (
 				686A05841D57184B009CD2D9 /* ViewController.h */,
 				686A05851D57184B009CD2D9 /* ViewController.m */,
+				686A05871D57184B009CD2D9 /* Main.storyboard */,
 				686A057E1D57184B009CD2D9 /* Supporting Files */,
 			);
 			path = SRAlertViewDemo;
@@ -110,9 +111,8 @@
 				686A057F1D57184B009CD2D9 /* main.m */,
 				686A05811D57184B009CD2D9 /* AppDelegate.h */,
 				686A05821D57184B009CD2D9 /* AppDelegate.m */,
-				686A05871D57184B009CD2D9 /* Main.storyboard */,
-				686A058A1D57184B009CD2D9 /* Assets.xcassets */,
 				686A058C1D57184B009CD2D9 /* LaunchScreen.storyboard */,
+				686A058A1D57184B009CD2D9 /* Assets.xcassets */,
 				686A058F1D57184B009CD2D9 /* Info.plist */,
 			);
 			name = "Supporting Files";

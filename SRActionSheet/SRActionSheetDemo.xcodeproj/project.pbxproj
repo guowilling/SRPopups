@@ -82,12 +82,12 @@
 		686A05381D571771009CD2D9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				686A05441D571771009CD2D9 /* Assets.xcassets */,
-				686A05491D571771009CD2D9 /* Info.plist */,
-				6E2F6C341D676034008083B9 /* LaunchScreen.storyboard */,
 				686A05391D571771009CD2D9 /* main.m */,
 				686A053B1D571771009CD2D9 /* AppDelegate.h */,
 				686A053C1D571771009CD2D9 /* AppDelegate.m */,
+				6E2F6C341D676034008083B9 /* LaunchScreen.storyboard */,
+				686A05441D571771009CD2D9 /* Assets.xcassets */,
+				686A05491D571771009CD2D9 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

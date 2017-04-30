@@ -1,7 +1,11 @@
 # SRPopups
 
-**SRActionSheet: A custom style action sheet which provides two styles for other action items.**  
+Combine SRActionSheet and SRAlertView into SRPopups.
 
-**SRAlertView: A custom style alert view which has animation when showing.**  
+## SRActionSheet
 
-**Detailed contents please see demos.**
+A custom style action sheet which provides two styles for other action items.
+
+## SRAlertView
+
+A custom style alert view which has animation when showing.
