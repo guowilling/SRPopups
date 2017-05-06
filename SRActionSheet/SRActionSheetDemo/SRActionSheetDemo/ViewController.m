@@ -43,7 +43,7 @@
 - (IBAction)testBtn1Action:(UIButton *)sender {
     
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
-                                                                cancelTitle:nil
+                                                                cancelTitle:@"取消"
                                                            destructiveTitle:nil
                                                                 otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                                 otherImages:nil
@@ -68,7 +68,7 @@
 - (IBAction)testBtn3Action:(UIButton *)sender {
     
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
-                                                                cancelTitle:nil
+                                                                cancelTitle:@"取消"
                                                            destructiveTitle:nil
                                                                 otherTitles:@[@"微信好友", @"微信朋友圈", @"QQ 好友", @"QQ 空间"]
                                                                 otherImages:@[[UIImage imageNamed:@"share_wx_friend"],

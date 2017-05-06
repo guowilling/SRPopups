@@ -7,24 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		681764A41E52B22A001A2E45 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 681764A31E52B22A001A2E45 /* FXBlurView.m */; };
-		68278CF21D64555300441E49 /* SRAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278CF11D64555300441E49 /* SRAlertView.m */; };
-		683088E41E0249A500C43A65 /* coldplay.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 683088E31E0249A500C43A65 /* coldplay.jpg */; };
 		686A05801D57184B009CD2D9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A057F1D57184B009CD2D9 /* main.m */; };
 		686A05831D57184B009CD2D9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A05821D57184B009CD2D9 /* AppDelegate.m */; };
 		686A05861D57184B009CD2D9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A05851D57184B009CD2D9 /* ViewController.m */; };
 		686A05891D57184B009CD2D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686A05871D57184B009CD2D9 /* Main.storyboard */; };
 		686A058B1D57184B009CD2D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 686A058A1D57184B009CD2D9 /* Assets.xcassets */; };
 		686A058E1D57184B009CD2D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686A058C1D57184B009CD2D9 /* LaunchScreen.storyboard */; };
+		6ED4F8571EBE27410074633B /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED4F8541EBE27410074633B /* FXBlurView.m */; };
+		6ED4F8581EBE27410074633B /* SRAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED4F8561EBE27410074633B /* SRAlertView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		681764A21E52B22A001A2E45 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
-		681764A31E52B22A001A2E45 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
-		68278CF01D64555300441E49 /* SRAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRAlertView.h; sourceTree = "<group>"; };
-		68278CF11D64555300441E49 /* SRAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRAlertView.m; sourceTree = "<group>"; };
-		683088E31E0249A500C43A65 /* coldplay.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coldplay.jpg; sourceTree = "<group>"; };
-		683088EA1E02648600C43A65 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		686A057B1D57184B009CD2D9 /* SRAlertViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRAlertViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		686A057F1D57184B009CD2D9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		686A05811D57184B009CD2D9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -35,6 +28,10 @@
 		686A058A1D57184B009CD2D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		686A058D1D57184B009CD2D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		686A058F1D57184B009CD2D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6ED4F8531EBE27410074633B /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
+		6ED4F8541EBE27410074633B /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
+		6ED4F8551EBE27410074633B /* SRAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRAlertView.h; sourceTree = "<group>"; };
+		6ED4F8561EBE27410074633B /* SRAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRAlertView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,40 +45,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		681764A11E52B22A001A2E45 /* FXBlurView */ = {
-			isa = PBXGroup;
-			children = (
-				681764A21E52B22A001A2E45 /* FXBlurView.h */,
-				681764A31E52B22A001A2E45 /* FXBlurView.m */,
-			);
-			path = FXBlurView;
-			sourceTree = "<group>";
-		};
-		68278CEF1D64555300441E49 /* SRAlertView */ = {
-			isa = PBXGroup;
-			children = (
-				681764A11E52B22A001A2E45 /* FXBlurView */,
-				68278CF01D64555300441E49 /* SRAlertView.h */,
-				68278CF11D64555300441E49 /* SRAlertView.m */,
-			);
-			path = SRAlertView;
-			sourceTree = SOURCE_ROOT;
-		};
-		683088E91E02648600C43A65 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				683088EA1E02648600C43A65 /* Accelerate.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		686A05721D57184B009CD2D9 = {
 			isa = PBXGroup;
 			children = (
-				68278CEF1D64555300441E49 /* SRAlertView */,
 				686A057D1D57184B009CD2D9 /* SRAlertViewDemo */,
 				686A057C1D57184B009CD2D9 /* Products */,
-				683088E91E02648600C43A65 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +64,7 @@
 		686A057D1D57184B009CD2D9 /* SRAlertViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6ED4F8511EBE27410074633B /* SRAlertView */,
 				686A05841D57184B009CD2D9 /* ViewController.h */,
 				686A05851D57184B009CD2D9 /* ViewController.m */,
 				686A05871D57184B009CD2D9 /* Main.storyboard */,
@@ -107,7 +76,6 @@
 		686A057E1D57184B009CD2D9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				683088E31E0249A500C43A65 /* coldplay.jpg */,
 				686A057F1D57184B009CD2D9 /* main.m */,
 				686A05811D57184B009CD2D9 /* AppDelegate.h */,
 				686A05821D57184B009CD2D9 /* AppDelegate.m */,
@@ -116,6 +84,26 @@
 				686A058F1D57184B009CD2D9 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6ED4F8511EBE27410074633B /* SRAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				6ED4F8521EBE27410074633B /* FXBlurView */,
+				6ED4F8551EBE27410074633B /* SRAlertView.h */,
+				6ED4F8561EBE27410074633B /* SRAlertView.m */,
+			);
+			name = SRAlertView;
+			path = ../../SRAlertView;
+			sourceTree = "<group>";
+		};
+		6ED4F8521EBE27410074633B /* FXBlurView */ = {
+			isa = PBXGroup;
+			children = (
+				6ED4F8531EBE27410074633B /* FXBlurView.h */,
+				6ED4F8541EBE27410074633B /* FXBlurView.m */,
+			);
+			path = FXBlurView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,7 +167,6 @@
 			files = (
 				686A058E1D57184B009CD2D9 /* LaunchScreen.storyboard in Resources */,
 				686A058B1D57184B009CD2D9 /* Assets.xcassets in Resources */,
-				683088E41E0249A500C43A65 /* coldplay.jpg in Resources */,
 				686A05891D57184B009CD2D9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,11 +178,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68278CF21D64555300441E49 /* SRAlertView.m in Sources */,
 				686A05861D57184B009CD2D9 /* ViewController.m in Sources */,
+				6ED4F8571EBE27410074633B /* FXBlurView.m in Sources */,
 				686A05831D57184B009CD2D9 /* AppDelegate.m in Sources */,
 				686A05801D57184B009CD2D9 /* main.m in Sources */,
-				681764A41E52B22A001A2E45 /* FXBlurView.m in Sources */,
+				6ED4F8581EBE27410074633B /* SRAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

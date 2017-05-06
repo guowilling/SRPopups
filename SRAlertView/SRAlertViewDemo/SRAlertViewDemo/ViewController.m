@@ -26,14 +26,10 @@
     
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.translucent = NO;
-    
-    self.title = @"SRAlertView";
-    
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.dataSource = self;
-    _tableView.delegate   = self;
+    _tableView.delegate = self;
     [self.view addSubview:_tableView];
 }
 
@@ -48,6 +44,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     switch (indexPath.row) {
         case 0:
@@ -95,8 +92,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     switch (indexPath.row) {
         case 0:

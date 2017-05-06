@@ -2,7 +2,7 @@
 //  SRActionSheetView.m
 //  SRActionSheet
 //
-//  Created by 郭伟林 on 16/7/5.
+//  Created by https://github.com/guowilling on 16/7/5.
 //  Copyright © 2016年 SR. All rights reserved.
 //
 
@@ -335,7 +335,7 @@
                      }];
 }
 
-#pragma mark - Tool Methods
+#pragma mark - Assist Methods
 
 - (UIImage *)imageFromColor:(UIColor *)color {
     

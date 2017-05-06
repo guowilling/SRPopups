@@ -2,7 +2,7 @@
 //  SRAlertView.h
 //  SRAlertView
 //
-//  Created by 郭伟林 on 16/7/8.
+//  Created by https://github.com/guowilling on 16/7/8.
 //  Copyright © 2016年 SR. All rights reserved.
 //
 

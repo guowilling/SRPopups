@@ -2,7 +2,7 @@
 //  SRAlertView.m
 //  SRAlertView
 //
-//  Created by 郭伟林 on 16/7/8.
+//  Created by https://github.com/guowilling on 16/7/8.
 //  Copyright © 2016年 SR. All rights reserved.
 //
 
@@ -52,6 +52,7 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 
 #define kLineBackgroundColor  [UIColor colorWithRed:1.00 green:0.92 blue:0.91 alpha:1.00]
 
+#define kBlurRadius  10.0
 
 @interface SRAlertView ()
 
@@ -160,8 +161,8 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
     
     [self addSubview:({
         _alertView = [[UIView alloc] init];
-        _alertView.backgroundColor     = [UIColor whiteColor];
-        _alertView.layer.cornerRadius  = 10.0;
+        _alertView.backgroundColor = [UIColor whiteColor];
+        _alertView.layer.cornerRadius = 10.0;
         _alertView.layer.masksToBounds = YES;
         _alertView;
     })];
@@ -172,7 +173,7 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
     
     [self setupMessageLabel];
     
-    _alertView.frame  = CGRectMake(0, 0, kAlertViewW, CGRectGetMaxY(_messageLabel.frame) + kAlertViewBtnH + kVerticalMargin);
+    _alertView.frame = CGRectMake(0, 0, kAlertViewW, CGRectGetMaxY(_messageLabel.frame) + kAlertViewBtnH + kVerticalMargin);
     _alertView.center = self.center;
     
     [self setupActions];
@@ -185,10 +186,10 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
     }
     [_alertView addSubview:({
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kVerticalMargin, kAlertViewW, kAlertViewTitleH)];
-        _titleLabel.text          = _title;
+        _titleLabel.text = _title;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.textColor     = kTitleLabelColor;
-        _titleLabel.font          = kTitleFont;
+        _titleLabel.textColor = kTitleLabelColor;
+        _titleLabel.font = kTitleFont;
         _titleLabel;
     })];
 }
@@ -215,15 +216,15 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
     [_alertView addSubview:({
         _messageLabel = [[UILabel alloc] init];
         _messageLabel.backgroundColor = [UIColor whiteColor];
-        _messageLabel.textColor       = kMessageLabelColor;
-        _messageLabel.font            = kMessageFont;
-        _messageLabel.numberOfLines   = 0;
+        _messageLabel.textColor = kMessageLabelColor;
+        _messageLabel.font = kMessageFont;
+        _messageLabel.numberOfLines = 0;
         _messageLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         CGSize maxSize = CGSizeMake(kAlertViewW - messageLabelSpacing * 2, MAXFLOAT);
         _messageLabel.text = @"one";
-        CGSize tempSize    = [_messageLabel sizeThatFits:maxSize];
+        CGSize tempSize = [_messageLabel sizeThatFits:maxSize];
         _messageLabel.text = _message;
-        CGSize expectSize  = [_messageLabel sizeThatFits:maxSize];
+        CGSize expectSize = [_messageLabel sizeThatFits:maxSize];
         if (expectSize.height == tempSize.height) { // if message label just has only one line
             _messageLabel.textAlignment = NSTextAlignmentCenter;
         }
@@ -329,7 +330,7 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
                              self.coverView.alpha = 1.0;
                          } completion:nil];
     } else {
-        self.blurView.blurRadius = 10;
+        self.blurView.blurRadius = kBlurRadius;
     }
     
     switch (self.animationStyle) {
@@ -413,7 +414,7 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
     }
 }
 
-#pragma mark - Tool Methods
+#pragma mark - Assist Methods
 
 - (UIImage *)imageWithColor:(UIColor *)color {
     

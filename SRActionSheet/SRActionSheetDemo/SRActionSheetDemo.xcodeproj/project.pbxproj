@@ -48,13 +48,13 @@
 				68278CFC1D64596300441E49 /* SRActionSheet.h */,
 				68278CFD1D64596300441E49 /* SRActionSheet.m */,
 			);
-			path = SRActionSheet;
+			name = SRActionSheet;
+			path = ../SRActionSheet;
 			sourceTree = SOURCE_ROOT;
 		};
 		686A052C1D571771009CD2D9 = {
 			isa = PBXGroup;
 			children = (
-				68278CFB1D64596300441E49 /* SRActionSheet */,
 				686A05371D571771009CD2D9 /* SRActionSheetDemo */,
 				686A05361D571771009CD2D9 /* Products */,
 			);
@@ -71,6 +71,7 @@
 		686A05371D571771009CD2D9 /* SRActionSheetDemo */ = {
 			isa = PBXGroup;
 			children = (
+				68278CFB1D64596300441E49 /* SRActionSheet */,
 				686A053E1D571771009CD2D9 /* ViewController.h */,
 				686A053F1D571771009CD2D9 /* ViewController.m */,
 				686A05411D571771009CD2D9 /* Main.storyboard */,
