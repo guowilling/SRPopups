@@ -26,7 +26,6 @@
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
     [self.testBtn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -41,7 +40,6 @@
 }
 
 - (IBAction)testBtn1Action:(UIButton *)sender {
-    
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                 cancelTitle:@"取消"
                                                            destructiveTitle:nil
@@ -53,7 +51,6 @@
 }
 
 - (IBAction)testBtn2Action:(UIButton *)sender {
-
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                 cancelTitle:@"取消"
                                                            destructiveTitle:nil
@@ -66,7 +63,6 @@
 }
 
 - (IBAction)testBtn3Action:(UIButton *)sender {
-    
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                 cancelTitle:@"取消"
                                                            destructiveTitle:nil
@@ -82,7 +78,6 @@
 }
 
 - (IBAction)testBtn4Action:(UIButton *)sender {
-    
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                 cancelTitle:@"取消"
                                                            destructiveTitle:nil
@@ -99,7 +94,6 @@
 #pragma mark - SRActionSheetDelegate
 
 - (void)actionSheet:(SRActionSheet *)actionSheet didSelectSheet:(NSInteger)index {
-    
     NSLog(@"%zd", index);
 }
 

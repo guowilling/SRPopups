@@ -85,13 +85,31 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 
 #pragma mark - BLOCK
 
-+ (instancetype)sr_alertViewWithTitle:(NSString *)title icon:(UIImage *)icon message:(NSString *)message leftActionTitle:(NSString *)leftActionTitle rightActionTitle:(NSString *)rightActionTitle animationStyle:(SRAlertViewAnimationStyle)animationStyle selectActionBlock:(SRAlertViewDidSelectActionBlock)selectActionBlock {
-    
-    return [[self alloc] initWithTitle:title icon:icon message:message leftActionTitle:leftActionTitle rightActionTitle:rightActionTitle animationStyle:animationStyle selectActionBlock:selectActionBlock];
++ (instancetype)sr_alertViewWithTitle:(NSString *)title
+                                 icon:(UIImage *)icon
+                              message:(NSString *)message
+                      leftActionTitle:(NSString *)leftActionTitle
+                     rightActionTitle:(NSString *)rightActionTitle
+                       animationStyle:(SRAlertViewAnimationStyle)animationStyle
+                    selectActionBlock:(SRAlertViewDidSelectActionBlock)block
+{
+    return [[self alloc] initWithTitle:title
+                                  icon:icon
+                               message:message
+                       leftActionTitle:leftActionTitle
+                      rightActionTitle:rightActionTitle
+                        animationStyle:animationStyle
+                     selectActionBlock:block];
 }
 
-- (instancetype)initWithTitle:(NSString *)title icon:(UIImage *)icon message:(NSString *)message leftActionTitle:(NSString *)leftActionTitle rightActionTitle:(NSString *)rightActionTitle animationStyle:(SRAlertViewAnimationStyle)animationStyle selectActionBlock:(SRAlertViewDidSelectActionBlock)selectActionBlock {
-    
+- (instancetype)initWithTitle:(NSString *)title
+                         icon:(UIImage *)icon
+                      message:(NSString *)message
+              leftActionTitle:(NSString *)leftActionTitle
+             rightActionTitle:(NSString *)rightActionTitle
+               animationStyle:(SRAlertViewAnimationStyle)animationStyle
+            selectActionBlock:(SRAlertViewDidSelectActionBlock)block
+{
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
         _blurEffect        = YES;
         _title             = title;
@@ -100,7 +118,7 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
         _leftActionTitle   = leftActionTitle;
         _rightActionTitle  = rightActionTitle;
         _animationStyle    = animationStyle;
-        _selectActionBlock = selectActionBlock;
+        _selectActionBlock = block;
         [self setupAlertView];
     }
     return self;
@@ -108,13 +126,31 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 
 #pragma mark - DELEGATE
 
-+ (instancetype)sr_alertViewWithTitle:(NSString *)title icon:(UIImage *)icon message:(NSString *)message leftActionTitle:(NSString *)leftActionTitle rightActionTitle:(NSString *)rightActionTitle animationStyle:(SRAlertViewAnimationStyle)animationStyle delegate:(id<SRAlertViewDelegate>)delegate {
-    
-    return [[self alloc] initWithTitle:title icon:icon message:message leftActionTitle:leftActionTitle rightActionTitle:rightActionTitle animationStyle:animationStyle delegate:delegate];
++ (instancetype)sr_alertViewWithTitle:(NSString *)title
+                                 icon:(UIImage *)icon
+                              message:(NSString *)message
+                      leftActionTitle:(NSString *)leftActionTitle
+                     rightActionTitle:(NSString *)rightActionTitle
+                       animationStyle:(SRAlertViewAnimationStyle)animationStyle
+                             delegate:(id<SRAlertViewDelegate>)delegate
+{
+    return [[self alloc] initWithTitle:title
+                                  icon:icon
+                               message:message
+                       leftActionTitle:leftActionTitle
+                      rightActionTitle:rightActionTitle
+                        animationStyle:animationStyle
+                              delegate:delegate];
 }
 
-- (instancetype)initWithTitle:(NSString *)title icon:(UIImage *)icon message:(NSString *)message leftActionTitle:(NSString *)leftActionTitle rightActionTitle:(NSString *)rightActionTitle animationStyle:(SRAlertViewAnimationStyle)animationStyle delegate:(id<SRAlertViewDelegate>)delegate {
-    
+- (instancetype)initWithTitle:(NSString *)title
+                         icon:(UIImage *)icon
+                      message:(NSString *)message
+              leftActionTitle:(NSString *)leftActionTitle
+             rightActionTitle:(NSString *)rightActionTitle
+               animationStyle:(SRAlertViewAnimationStyle)animationStyle
+                     delegate:(id<SRAlertViewDelegate>)delegate
+{
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
         _blurEffect       = YES;
         _title            = title;
@@ -132,7 +168,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark - Setup UI
 
 - (FXBlurView *)blurView {
-    
     if (!_blurView) {
         self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.33];
         _blurView = [[FXBlurView alloc] initWithFrame:SCREEN_BOUNDS];
@@ -145,7 +180,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (UIView *)coverView {
-    
     if (!_coverView) {
         [self insertSubview:({
             _coverView = [[UIView alloc] initWithFrame:self.bounds];
@@ -158,7 +192,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (void)setupAlertView {
-    
     [self addSubview:({
         _alertView = [[UIView alloc] init];
         _alertView.backgroundColor = [UIColor whiteColor];
@@ -180,7 +213,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (void)setupTitleView {
-    
     if (!_title || _title.length == 0) {
         return;
     }
@@ -195,7 +227,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (void)setupIconImageView {
-    
     if (_title && _title.length > 0) { // the icon title will be ignored if there is text title already
         return;
     }
@@ -211,7 +242,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (void)setupMessageLabel {
-    
     CGFloat messageLabelSpacing = 20;
     [_alertView addSubview:({
         _messageLabel = [[UILabel alloc] init];
@@ -237,7 +267,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (void)setupActions {
-    
     CGFloat btnY = _alertView.frame.size.height - kAlertViewBtnH;
     if (_leftActionTitle) {
         [_alertView addSubview:({
@@ -300,7 +329,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark - Actions
 
 - (void)btnAction:(UIButton *)btn {
-    
     if (self.selectActionBlock) {
         self.selectActionBlock(btn.tag);
     }
@@ -314,7 +342,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark - Animations
 
 - (void)show {
-    
     if (!_blurEffect) {
         [self coverView];
     } else {
@@ -397,7 +424,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (void)dismiss {
-
     [self.alertView removeFromSuperview];
     
     if (!_blurEffect) {
@@ -417,7 +443,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark - Assist Methods
 
 - (UIImage *)imageWithColor:(UIColor *)color {
-    
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -431,7 +456,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark - Public Methods
 
 - (void)setAnimationStyle:(SRAlertViewAnimationStyle)animationStyle {
-    
     if (_animationStyle == animationStyle) {
         return;
     }
@@ -439,7 +463,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (void)setBlurEffect:(BOOL)blurEffect {
-    
     if (_blurEffect == blurEffect) {
         return;
     }
@@ -447,7 +470,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (void)setActionTitleColorWhenHighlighted:(UIColor *)actionTitleColorWhenHighlighted {
-    
     _actionTitleColorWhenHighlighted = actionTitleColorWhenHighlighted;
     
     [self.leftAction  setTitleColor:actionTitleColorWhenHighlighted forState:UIControlStateHighlighted];
@@ -455,7 +477,6 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (void)setActionBackgroundColorWhenHighlighted:(UIColor *)actionBackgroundColorWhenHighlighted {
-    
     _actionBackgroundColorWhenHighlighted = actionBackgroundColorWhenHighlighted;
     
     [self.leftAction  setBackgroundImage:[self imageWithColor:actionBackgroundColorWhenHighlighted] forState:UIControlStateHighlighted];

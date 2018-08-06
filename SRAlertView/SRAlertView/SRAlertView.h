@@ -48,9 +48,21 @@ typedef void(^SRAlertViewDidSelectActionBlock)(SRAlertViewActionType actionType)
 
 @property (nonatomic, strong) UIColor *actionBackgroundColorWhenHighlighted;
 
-+ (instancetype)sr_alertViewWithTitle:(NSString *)title icon:(UIImage *)icon message:(NSString *)message leftActionTitle:(NSString *)leftActionTitle rightActionTitle:(NSString *)rightActionTitle animationStyle:(SRAlertViewAnimationStyle)animationStyle selectActionBlock:(SRAlertViewDidSelectActionBlock)selectActionBlock;
++ (instancetype)sr_alertViewWithTitle:(NSString *)title
+                                 icon:(UIImage *)icon
+                              message:(NSString *)message
+                      leftActionTitle:(NSString *)leftActionTitle
+                     rightActionTitle:(NSString *)rightActionTitle
+                       animationStyle:(SRAlertViewAnimationStyle)animationStyle
+                    selectActionBlock:(SRAlertViewDidSelectActionBlock)block;
 
-+ (instancetype)sr_alertViewWithTitle:(NSString *)title icon:(UIImage *)icon message:(NSString *)message leftActionTitle:(NSString *)leftActionTitle rightActionTitle:(NSString *)rightActionTitle animationStyle:(SRAlertViewAnimationStyle)animationStyle delegate:(id<SRAlertViewDelegate>)delegate;
++ (instancetype)sr_alertViewWithTitle:(NSString *)title
+                                 icon:(UIImage *)icon
+                              message:(NSString *)message
+                      leftActionTitle:(NSString *)leftActionTitle
+                     rightActionTitle:(NSString *)rightActionTitle
+                       animationStyle:(SRAlertViewAnimationStyle)animationStyle
+                             delegate:(id<SRAlertViewDelegate>)delegate;
 
 - (void)show;
 

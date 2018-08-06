@@ -79,13 +79,28 @@
 
 #pragma mark - BLOCK
 
-+ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectActionBlock:(SRActionSheetDidSelectActionBlock)selectActionBlock {
-    
-    return [[self alloc] initWithTitle:title cancelTitle:cancelTitle destructiveTitle:destructiveTitle otherTitles:otherTitles otherImages:otherImages selectActionBlock:selectActionBlock];
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title
+                                cancelTitle:(NSString *)cancelTitle
+                           destructiveTitle:(NSString *)destructiveTitle
+                                otherTitles:(NSArray *)otherTitles
+                                otherImages:(NSArray *)otherImages
+                          selectActionBlock:(SRActionSheetDidSelectActionBlock)block
+{
+    return [[self alloc] initWithTitle:title
+                           cancelTitle:cancelTitle
+                      destructiveTitle:destructiveTitle
+                           otherTitles:otherTitles
+                           otherImages:otherImages
+                     selectActionBlock:block];
 }
 
-- (instancetype)initWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectActionBlock:(SRActionSheetDidSelectActionBlock)selectActionBlock {
-    
+- (instancetype)initWithTitle:(NSString *)title
+                  cancelTitle:(NSString *)cancelTitle
+             destructiveTitle:(NSString *)destructiveTitle
+                  otherTitles:(NSArray *)otherTitles
+                  otherImages:(NSArray *)otherImages
+            selectActionBlock:(SRActionSheetDidSelectActionBlock)selectActionBlock
+{
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
         _title             = title;
         _cancelTitle       = cancelTitle;
@@ -101,13 +116,28 @@
 
 #pragma mark - DELEGATE
 
-+ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages delegate:(id<SRActionSheetDelegate>)delegate {
-    
-    return [[self alloc] initWithTitle:title cancelTitle:cancelTitle destructiveTitle:destructiveTitle otherTitles:otherTitles otherImages:otherImages delegate:delegate];
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title
+                                cancelTitle:(NSString *)cancelTitle
+                           destructiveTitle:(NSString *)destructiveTitle
+                                otherTitles:(NSArray *)otherTitles
+                                otherImages:(NSArray *)otherImages
+                                   delegate:(id<SRActionSheetDelegate>)delegate
+{
+    return [[self alloc] initWithTitle:title
+                           cancelTitle:cancelTitle
+                      destructiveTitle:destructiveTitle
+                           otherTitles:otherTitles
+                           otherImages:otherImages
+                              delegate:delegate];
 }
 
-- (instancetype)initWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages delegate:(id<SRActionSheetDelegate>)delegate {
-    
+- (instancetype)initWithTitle:(NSString *)title
+                  cancelTitle:(NSString *)cancelTitle
+             destructiveTitle:(NSString *)destructiveTitle
+                  otherTitles:(NSArray *)otherTitles
+                  otherImages:(NSArray *)otherImages
+                     delegate:(id<SRActionSheetDelegate>)delegate
+{
     if (self = [super initWithFrame:SCREEN_BOUNDS]) {
         _title            = title;
         _cancelTitle      = cancelTitle;
@@ -123,8 +153,18 @@
 
 #pragma mark - Setup UI
 
+- (void)setupCover {
+    [self addSubview:({
+        UIView *cover = [[UIView alloc] init];
+        cover.frame = self.bounds;
+        cover.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.33];
+        cover.alpha = 0;
+        [cover addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)]];
+        _cover = cover;
+    })];
+}
+
 - (void)setupActionSheet {
-    
     [self addSubview:({
         UIView *actionSheet = [[UIView alloc] init];
         actionSheet.backgroundColor = kActionSheetColor;
@@ -151,20 +191,7 @@
     _actionSheetHeight = _offsetY;
 }
 
-- (void)setupCover {
-    
-    [self addSubview:({
-        UIView *cover = [[UIView alloc] init];
-        cover.frame = self.bounds;
-        cover.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.33];
-        cover.alpha = 0;
-        [cover addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)]];
-        _cover = cover;
-    })];
-}
-
 - (void)setupTitleLabel {
-    
     if (!_title && _title.length == 0) {
         return;
     }
@@ -182,7 +209,6 @@
 }
 
 - (void)setupOtherActionItems {
-    
     if (!_otherTitles || _otherTitles.count == 0) {
         return;
     }
@@ -246,7 +272,6 @@
 }
 
 - (void)setupDestructiveActionItem {
-    
     if (!_destructiveTitle && _destructiveTitle.length == 0) {
         return;
     }
@@ -268,7 +293,6 @@
 }
 
 - (void)setupCancelActionItem {
-    
     if (!_cancelTitle || _cancelTitle.length == 0) {
         return;
     }
@@ -292,7 +316,6 @@
 #pragma mark - Actions
 
 - (void)didSelectSheet:(UIButton *)button {
-    
     if (_selectActionBlock) {
         _selectActionBlock(self, button.tag);
     }
@@ -305,7 +328,6 @@
 #pragma mark - Animations
 
 - (void)show {
-    
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     [UIView animateWithDuration:0.5
                           delay:0.0
@@ -320,7 +342,6 @@
 }
 
 - (void)dismiss {
-    
     [UIView animateWithDuration:0.5
                           delay:0.0
          usingSpringWithDamping:0.9
@@ -338,7 +359,6 @@
 #pragma mark - Assist Methods
 
 - (UIImage *)imageFromColor:(UIColor *)color {
-    
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -350,7 +370,6 @@
 }
 
 - (CGSize)maxSizeInStrings:(NSArray *)strings {
-    
     CGSize maxSize = CGSizeZero;
     CGFloat maxWith = 0.0;
     for (NSString *string in strings) {
@@ -364,7 +383,6 @@
 }
 
 - (CGSize)sizeOfString:(NSString *)string withFont:(UIFont *)font {
-    
     NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
     attrs[NSFontAttributeName] = font;
     CGSize maxSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
@@ -374,7 +392,6 @@
 #pragma mark - Public Methods
 
 - (void)setOtherActionItemAlignment:(SROtherActionItemAlignment)otherActionItemAlignment {
-    
     _otherActionItemAlignment = otherActionItemAlignment;
     
     switch (otherActionItemAlignment) {
