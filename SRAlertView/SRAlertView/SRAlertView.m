@@ -270,7 +270,7 @@ blue:((float)(RGBValue & 0xFF))/255.0 alpha:1.0]
             [_rightAction setBackgroundImage:[self imageWithColor:kBtnHighlightedBackgroundColor] forState:UIControlStateHighlighted];
             [_rightAction addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
             [_alertView addSubview:_rightAction];
-            if (_rightActionTitle) {
+            if (_leftActionTitle) {
                 _rightAction.frame = CGRectMake(kAlertViewW * 0.5, btnY, kAlertViewW * 0.5, kAlertViewBtnH);
             } else {
                 _rightAction.frame = CGRectMake(0, btnY, kAlertViewW, kAlertViewBtnH);
