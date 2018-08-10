@@ -36,9 +36,19 @@ typedef void (^SRActionSheetDidSelectActionBlock)(SRActionSheet *actionSheet, NS
  */
 @property (nonatomic, assign) SROtherActionItemAlignment otherActionItemAlignment;
 
-+ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages selectActionBlock:(SRActionSheetDidSelectActionBlock)selectActionBlock;
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title
+                                cancelTitle:(NSString *)cancelTitle
+                           destructiveTitle:(NSString *)destructiveTitle
+                                otherTitles:(NSArray *)otherTitles
+                                otherImages:(NSArray *)otherImages
+                          selectActionBlock:(SRActionSheetDidSelectActionBlock)block;
 
-+ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle destructiveTitle:(NSString *)destructiveTitle otherTitles:(NSArray *)otherTitles otherImages:(NSArray *)otherImages delegate:(id<SRActionSheetDelegate>)delegate;
++ (instancetype)sr_actionSheetViewWithTitle:(NSString *)title
+                                cancelTitle:(NSString *)cancelTitle
+                           destructiveTitle:(NSString *)destructiveTitle
+                                otherTitles:(NSArray *)otherTitles
+                                otherImages:(NSArray *)otherImages
+                                   delegate:(id<SRActionSheetDelegate>)delegate;
 
 - (void)show;
 
